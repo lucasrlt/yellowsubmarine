@@ -15,6 +15,7 @@ class Window:
     def refresh(self):
         pygame.display.flip()
         self.terrain.space.debug_draw(self.draw_options)
+        self.terrain.update(120)
 
     def close(self):
         for event in pygame.event.get():
