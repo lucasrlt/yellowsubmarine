@@ -1,5 +1,5 @@
 from src.constants import WINDOW_SIZE
-from src.Window import *
+from src.window import *
 
 if __name__ == "__main__":
     print(WINDOW_SIZE)
