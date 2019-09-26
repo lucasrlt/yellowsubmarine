@@ -1,2 +1,2 @@
-DEBUG = False
+DEBUG = True
 WINDOW_SIZE = (1000, 640)

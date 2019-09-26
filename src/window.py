@@ -15,6 +15,7 @@ class Window:
     def refresh(self):
         pygame.display.flip()
         self.terrain.space.debug_draw(self.draw_options)
+        self.terrain.update(120)
 
     def draw1(self):
         pygame.draw.circle(self.screen, (255,0,0), self.terrain.submarine.polygonVertices[3], self.terrain.submarine.sonar, 1)
