@@ -18,6 +18,9 @@ class Window:
         self.terrain.space.debug_draw(self.draw_options)
         self.terrain.update(120)
 
+    def draw1(self):
+        pygame.draw.circle(self.screen, (255,0,0), self.terrain.submarine.polygonVertices[3], self.terrain.submarine.sonar, 1)
+
     def close(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
