@@ -62,7 +62,11 @@ class Terrain:
     def update(self, fps):
         self.space.step(1.0/fps)
         self.clock.tick(fps)
+<<<<<<< HEAD
     
 
 
         
+=======
+       # print(self.submarine.physicsPolygon.body.position)
+>>>>>>> 1f120c55ea5119a8e2729868faeb63f0e0e507ca
