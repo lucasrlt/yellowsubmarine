@@ -24,7 +24,8 @@ class Window:
         self.stats.draw(self.screen)
 
     def draw1(self):
-        pygame.draw.circle(self.screen, (255,0,0), self.terrain.submarine.polygonVertices[3], self.terrain.submarine.sonar, 1)
+        sonarX, sonarY = self.terrain.submarine.getScreenPosition()
+        pygame.draw.circle(self.screen, (255,0,0), (int(sonarX), int(sonarY)), self.terrain.submarine.sonarRadius, 1)
 
     def close(self):
         for event in pygame.event.get():
