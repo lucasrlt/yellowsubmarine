@@ -4,11 +4,15 @@ import pymunk
 import pymunk.pygame_util
 import random
 from .terrain import Terrain
+from .stats import Stats
+
 
 class Window:
     def __init__(self):
+        pygame.init()
         self.screen = pygame.display.set_mode(WINDOW_SIZE)
         self.terrain = Terrain()
+        self.stats = Stats(self.terrain)
         self.draw_options = pymunk.pygame_util.DrawOptions(self.screen)
         pymunk.pygame_util.positive_y_is_up = False
 
@@ -17,6 +21,7 @@ class Window:
         self.screen.fill((0, 0, 0))
         self.terrain.space.debug_draw(self.draw_options)
         self.terrain.update(120)
+        self.stats.draw(self.screen)
 
     def draw1(self):
         pygame.draw.circle(self.screen, (255,0,0), self.terrain.submarine.polygonVertices[3], self.terrain.submarine.sonar, 1)
