@@ -59,7 +59,7 @@ class Terrain:
                 self.space.add(self.grid2)
 
         self.submarine = Submarine(self.space, (150, (int(WINDOW_SIZE[1] / 2))- 50))
-        self.secondSub = Submarine(self.space, (150, int(WINDOW_SIZE[1] / 2)))
+        #self.secondSub = Submarine(self.space, (150, int(WINDOW_SIZE[1] / 2)))
 
     
     # Mise à jour de l'image

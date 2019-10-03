@@ -22,7 +22,12 @@ class Submarine:
 
         self.setPosition((x, y))
        
-       
+
+    def getScreenPosition(self):
+        poly_center = tuple(map(sum, zip(self.position, self.sonarOffset)))
+        
+        return self.physicsPolygon.body.local_to_world(poly_center)
+  
 
     def setVertices(self, vertices):
         self.polygonVertices = vertices
@@ -37,11 +42,14 @@ class Submarine:
         body.apply_force_at_local_point(self.bottomPropulsor.force, self.bottomPropulsor.position)
 
         self.physicsPolygon = pymunk.Poly(body, self.polygonVertices, None, 1)
-
-        self.sonar = pymunk.Circle(self.physicsPolygon.body, self.sonarRadius, self.sonarOffset)
         
+        self.sonarBody = pymunk.Body(0, 0, body_type=pymunk.Body.DYNAMIC)
+        #self.sonarBody.position = self.getScreenPosition
+        self.sonar = pymunk.Circle(self.sonarBody, self.sonarRadius, self.sonarOffset)
+        self.sonar.filter = pymunk.ShapeFilter(categories = 2, mask=pymunk.ShapeFilter.ALL_MASKS ^ 1)
+
         self.physicsPolygon.filter = pymunk.ShapeFilter(categories=1, mask=pymunk.ShapeFilter.ALL_MASKS ^ 1)
-        self.physicsSpace.add(body, self.physicsPolygon)
+        self.physicsSpace.add(body, self.physicsPolygon, self.sonar)
 
     def setPosition(self, position):
         self.position = position
@@ -49,8 +57,3 @@ class Submarine:
         size = self.size
         self.polygonVertices = [(x, y), (x + size, y + size), (x + 2 * size, y + size), (x + 3 * size, y), (x + 2 * size, y - size), (x + size, y - size)]
         self.setVertices(self.polygonVertices)
-
-    def getScreenPosition(self):
-        poly_center = tuple(map(sum, zip(self.position, self.sonarOffset)))
-        
-        return self.physicsPolygon.body.local_to_world(poly_center)
