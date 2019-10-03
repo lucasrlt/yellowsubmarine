@@ -2,7 +2,7 @@ import pygame
 import pymunk
 import pymunk.pygame_util
 from .submarine import Submarine
-from .constants import DEBUG
+from .constants import DEBUG, WINDOW_SIZE
 # 1000 640
 
 class Terrain:
@@ -62,4 +62,5 @@ class Terrain:
     def update(self, fps):
         self.space.step(1.0/fps)
         self.clock.tick(fps)
-        print(self.submarine.physicsPolygon.body.position)
+        # print(self.submarine.physicsPolygon.body.position)
+        print(self.submarine.physicsPolygon.body.center_of_gravity)
