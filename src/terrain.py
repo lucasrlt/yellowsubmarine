@@ -25,6 +25,7 @@ class Terrain:
 
         for i in range(len(self.verticesBottomList)-1):
             self.bottomLine = pymunk.Segment(self.space.static_body, self.verticesBottomList[i], self.verticesBottomList[i+1], 4)
+
             self.space.add(self.bottomLine)
 
         if DEBUG:
@@ -32,6 +33,7 @@ class Terrain:
             print('#### Entering Top Lines Loop ####')
         for i in range(len(self.verticesTopList)-1):
             self.topLine = pymunk.Segment(self.space.static_body, self.verticesTopList[i], self.verticesTopList[i+1], 4)
+
             self.space.add(self.topLine)
 
         if DEBUG: 
@@ -56,8 +58,14 @@ class Terrain:
                 self.grid2 = pymunk.Segment(self.space.static_body, (0,i*100), (1000,i*100),2)
                 self.space.add(self.grid2)
 
-        self.submarine = Submarine(self.space, (110, int(WINDOW_SIZE[1] / 2)))
-        Submarine(self.space, (150, int(WINDOW_SIZE[1] / 2)))
+        self.submarine = Submarine(self.space, (150, (int(WINDOW_SIZE[1] / 2))- 50))
+        self.secondSub = Submarine(self.space, (150, int(WINDOW_SIZE[1] / 2)))
+        # self.submarine.filter = pymunk.ShapeFilter(categories=0b01)
+        # self.secondSub.filter = pymunk.ShapeFilter(categories=0b01)
+        # self.filter = pymunk.ShapeFilter(mask=pymunk.ShapeFilter.ALL_MASKS ^ 0b01)
+        # self.hit = self.space.point_query_nearest((0,0),0,self.filter)
+
+
     
     # Mise à jour de l'image
     def update(self, fps):
