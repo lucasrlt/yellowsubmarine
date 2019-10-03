@@ -19,7 +19,8 @@ class Window:
         self.terrain.update(120)
 
     def draw1(self):
-        pygame.draw.circle(self.screen, (255,0,0), self.terrain.submarine.polygonVertices[3], self.terrain.submarine.sonar, 1)
+        sonarX, sonarY = self.terrain.submarine.physicsPolygon.body.position
+        pygame.draw.circle(self.screen, (255,0,0), (int(sonarX), int(sonarY)), self.terrain.submarine.sonar, 1)
 
     def close(self):
         for event in pygame.event.get():
