@@ -1,4 +1,5 @@
 import pymunk
+import pymunk.pygame_util
 from .constants import WINDOW_SIZE
 
 class Submarine:
@@ -6,11 +7,15 @@ class Submarine:
         x, y = position
         self.size = 15
         self.physicsSpace = physicsSpace
-
-        self.setPosition((x, y))
-
+        
         self.sonarRadius = 50
         self.sonarOffset = (self.size + self.size / 2, 0)
+        
+        self.setPosition((x, y))
+
+        
+
+       
 
     def setVertices(self, vertices):
         self.polygonVertices = vertices
@@ -19,7 +24,9 @@ class Submarine:
         body.position = self.size * 2 + self.size / 2, 0
         
         self.physicsPolygon = pymunk.Poly(body, self.polygonVertices, None, 1)
-        self.physicsSpace.add(body, self.physicsPolygon)
+        self.physicsSpace.add(body, self.physicsPolygon) 
+        
+        self.sonar = pymunk.Circle(self.physicsPolygon.body, self.sonarRadius, self.sonarOffset)
 
     def setPosition(self, position):
         self.position = position
