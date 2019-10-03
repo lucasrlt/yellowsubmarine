@@ -2,12 +2,27 @@ import pymunk
 import pymunk.pygame_util
 from .constants import WINDOW_SIZE
 
+class Propulsor:
+    def __init__(self, position, force, angle = 0):
+        self.position = pymunk.Vec2d(position)
+        self.force = pymunk.Vec2d(force)
+        self.force.rotate(angle)
+
 class Submarine:
     def __init__(self, physicsSpace, position):
         x, y = position
         self.size = 15
         self.physicsSpace = physicsSpace
+<<<<<<< HEAD
         
+=======
+
+        self.leftPropulsor = Propulsor((0, 0), (50000, 0), 0)
+        self.bottomPropulsor = Propulsor((int(self.size + self.size / 2), -self.size), (0, -50000), 0)
+
+        self.setPosition((x, y))
+
+>>>>>>> 77422175ff124a77a8047bc87b70394e9d63e79b
         self.sonarRadius = 50
         self.sonarOffset = (self.size + self.size / 2, 0)
         
@@ -22,11 +37,22 @@ class Submarine:
         body = pymunk.Body(10, pymunk.moment_for_poly(10, vertices), body_type=pymunk.Body.DYNAMIC)
         body.density = 3
         body.position = self.size * 2 + self.size / 2, 0
-        
+
+        body.apply_force_at_local_point((0, 0), (body.position[0], body.position[1] - self.size))
+
+        body.apply_force_at_local_point(self.leftPropulsor.force, self.leftPropulsor.position)
+
+        body.apply_force_at_local_point(self.bottomPropulsor.force, self.bottomPropulsor.position)
+
         self.physicsPolygon = pymunk.Poly(body, self.polygonVertices, None, 1)
+<<<<<<< HEAD
         self.physicsSpace.add(body, self.physicsPolygon) 
         
         self.sonar = pymunk.Circle(self.physicsPolygon.body, self.sonarRadius, self.sonarOffset)
+=======
+        self.physicsPolygon.filter = pymunk.ShapeFilter(categories=1, mask=pymunk.ShapeFilter.ALL_MASKS ^ 1)
+        self.physicsSpace.add(body, self.physicsPolygon)
+>>>>>>> 77422175ff124a77a8047bc87b70394e9d63e79b
 
     def setPosition(self, position):
         self.position = position
