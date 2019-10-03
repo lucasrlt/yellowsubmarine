@@ -12,7 +12,7 @@ class Window:
         pygame.init()
         self.screen = pygame.display.set_mode(WINDOW_SIZE)
         self.terrain = Terrain()
-        self.stats = Stats(self.terrain)
+        self.stats = Stats()
         self.draw_options = pymunk.pygame_util.DrawOptions(self.screen)
         pymunk.pygame_util.positive_y_is_up = False
 
@@ -21,7 +21,7 @@ class Window:
         self.screen.fill((0, 0, 0))
         self.terrain.space.debug_draw(self.draw_options)
         self.terrain.update(120)
-        self.stats.draw(self.screen)
+        self.stats.draw(self.screen,self.terrain)
 
     def draw1(self):
         sonarX, sonarY = self.terrain.submarine.getScreenPosition()
