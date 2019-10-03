@@ -24,9 +24,9 @@ class Window:
         self.stats.draw(self.screen,self.terrain)
 
     def draw1(self):
-        self.terrain.submarine.sonar.color = pygame.color.THECOLORS["pink"]
-        #sonarX, sonarY = self.terrain.submarine.getScreenPosition()
-        #pygame.draw.circle(self.screen, (255,0,0), (int(sonarX), int(sonarY)), self.terrain.submarine.sonarRadius, 1)
+        #self.terrain.submarine.sonar.color = pygame.color.THECOLORS["pink"]
+        sonarX, sonarY = self.terrain.submarine.getScreenPosition()
+        pygame.draw.circle(self.screen, (255,0,0), (int(sonarX), int(sonarY)), self.terrain.submarine.sonarRadius, 1)
 
     def close(self):
         for event in pygame.event.get():
