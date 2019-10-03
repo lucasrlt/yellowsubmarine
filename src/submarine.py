@@ -12,13 +12,10 @@ class Submarine:
         x, y = position
         self.size = 15
         self.physicsSpace = physicsSpace
-<<<<<<< HEAD
 
         self.leftPropulsor = Propulsor((0, 0), (50000, 0), 0)
         self.bottomPropulsor = Propulsor((int(self.size + self.size / 2), -self.size), (0, -50000), 0)
 
-=======
->>>>>>> f06dc76aaaea3120c667dd3a6111bb665f1587c8
         self.setPosition((x, y))
 
         self.sonarRadius = 50
