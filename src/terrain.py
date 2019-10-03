@@ -2,7 +2,7 @@ import pygame
 import pymunk
 import pymunk.pygame_util
 from .submarine import Submarine
-from .constants import DEBUG
+from .constants import DEBUG, WINDOW_SIZE
 # 1000 640
 
 class Terrain:

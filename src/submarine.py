@@ -15,7 +15,9 @@ class Submarine:
     def setVertices(self, vertices):
         self.polygonVertices = vertices
         body = pymunk.Body(10, pymunk.moment_for_poly(10, vertices), body_type=pymunk.Body.DYNAMIC)
-        
+        body.density = 3
+        body.position = (self.size + self.size / 2, 0)
+        body.center_of_gravity = (self.size + self.size / 2, 0)
         
         self.physicsPolygon = pymunk.Poly(body, self.polygonVertices, None, 1)
         self.physicsSpace.add(body, self.physicsPolygon)
@@ -28,4 +30,4 @@ class Submarine:
         self.setVertices(self.polygonVertices)
 
     def getScreenPosition(self):
-        return self.position + self.physicsPolygon.body.position + self.sonarOffset
+        return self.physicsPolygon.body.local_to_world(self.position)
