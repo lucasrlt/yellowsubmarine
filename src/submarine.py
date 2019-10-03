@@ -2,8 +2,8 @@ import pymunk
 from .constants import WINDOW_SIZE
 
 class Submarine:
-    def __init__(self, physicsSpace):
-        x, y = (200, int(WINDOW_SIZE[1] / 2))
+    def __init__(self, physicsSpace, position):
+        x, y = position
         self.size = 15
         self.physicsSpace = physicsSpace
 

@@ -56,7 +56,8 @@ class Terrain:
                 self.grid2 = pymunk.Segment(self.space.static_body, (0,i*100), (1000,i*100),2)
                 self.space.add(self.grid2)
 
-        self.submarine = Submarine(self.space)
+        self.submarine = Submarine(self.space, (110, int(WINDOW_SIZE[1] / 2)))
+        Submarine(self.space, (150, int(WINDOW_SIZE[1] / 2)))
     
     # Mise à jour de l'image
     def update(self, fps):
