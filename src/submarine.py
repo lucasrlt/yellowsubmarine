@@ -13,16 +13,12 @@ class Submarine:
         x, y = position
         self.size = 15
         self.physicsSpace = physicsSpace
-<<<<<<< HEAD
-        
-=======
 
         self.leftPropulsor = Propulsor((0, 0), (50000, 0), 0)
         self.bottomPropulsor = Propulsor((int(self.size + self.size / 2), -self.size), (0, -50000), 0)
 
         self.setPosition((x, y))
 
->>>>>>> 77422175ff124a77a8047bc87b70394e9d63e79b
         self.sonarRadius = 50
         self.sonarOffset = (self.size + self.size / 2, 0)
         
@@ -45,14 +41,11 @@ class Submarine:
         body.apply_force_at_local_point(self.bottomPropulsor.force, self.bottomPropulsor.position)
 
         self.physicsPolygon = pymunk.Poly(body, self.polygonVertices, None, 1)
-<<<<<<< HEAD
         self.physicsSpace.add(body, self.physicsPolygon) 
         
         self.sonar = pymunk.Circle(self.physicsPolygon.body, self.sonarRadius, self.sonarOffset)
-=======
         self.physicsPolygon.filter = pymunk.ShapeFilter(categories=1, mask=pymunk.ShapeFilter.ALL_MASKS ^ 1)
         self.physicsSpace.add(body, self.physicsPolygon)
->>>>>>> 77422175ff124a77a8047bc87b70394e9d63e79b
 
     def setPosition(self, position):
         self.position = position
