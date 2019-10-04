@@ -26,7 +26,7 @@ class Stats:
         
     def draw(self,screen, terrain):
 
-        self.nbrSubText = self.font.render("Sub_Number = nombre ", True, self.green)
+        self.nbrSubText = self.font.render("Sub_Number = " + str(terrain.nbrSubCreated), True, self.green)
         self.nbrSubTextRect = self.nbrSubText.get_rect()
         self.nbrSubTextRect.topleft = (self.nbrSubX, self.nbrSubY)
         screen.blit(self.nbrSubText, self.nbrSubTextRect)

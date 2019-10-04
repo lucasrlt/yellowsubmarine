@@ -26,6 +26,7 @@ class Terrain:
         #28
         
         self.verticesBoxList = [(300,200),(400,325),(600,250),(800,375)]
+        self.nbrSubCreated = 0
 
         if DEBUG:
             print('Bottom vertices list lenght : ' + str(len(self.verticesBottomList)))
@@ -71,6 +72,7 @@ class Terrain:
                 self.space.add(self.grid2)
 
         self.submarine = Submarine(self.space, (150, (int(WINDOW_SIZE[1] / 2))- 50))
+        self.nbrSubCreated += 1
         #self.secondSub = Submarine(self.space, (150, int(WINDOW_SIZE[1] / 2)))
 
     
