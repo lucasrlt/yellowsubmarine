@@ -44,7 +44,7 @@ class Submarine:
         self.physicsPolygon = pymunk.Poly(body, self.polygonVertices, None, 1)
         
         self.sonarBody = pymunk.Body(0, 0, body_type=pymunk.Body.DYNAMIC)
-        #self.sonarBody.position = self.getScreenPosition
+        self.sonarBody.position = self.getScreenPosition()
         self.sonar = pymunk.Circle(self.sonarBody, self.sonarRadius, self.sonarOffset)
         self.sonar.filter = pymunk.ShapeFilter(categories = 1, mask=pymunk.ShapeFilter.ALL_MASKS ^ 1)
 

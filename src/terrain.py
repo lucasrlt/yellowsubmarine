@@ -78,4 +78,5 @@ class Terrain:
     def update(self, fps):
         self.space.step(1.0/fps)
         self.clock.tick(fps)
+        self.submarine.sonarBody.position = self.submarine.getScreenPosition()
         # print(self.submarine.physicsPolygon.body.force)
