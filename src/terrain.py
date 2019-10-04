@@ -62,9 +62,12 @@ class Terrain:
         if DEBUG:
             for i in range(20):
                 self.grid = pymunk.Segment(self.space.static_body, (i*100 ,0), (i*100, 640), 2)
+                self.grid.filter = pymunk.ShapeFilter(categories = 1, mask=pymunk.ShapeFilter.ALL_MASKS ^ 1)
+
                 self.space.add(self.grid)
             for i in range(10):
                 self.grid2 = pymunk.Segment(self.space.static_body, (0,i*100), (2000,i*100),2)
+                self.grid2.filter = pymunk.ShapeFilter(categories = 1, mask=pymunk.ShapeFilter.ALL_MASKS ^ 1)
                 self.space.add(self.grid2)
 
         self.submarine = Submarine(self.space, (150, (int(WINDOW_SIZE[1] / 2))- 50))
