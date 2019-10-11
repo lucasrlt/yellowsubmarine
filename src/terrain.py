@@ -79,4 +79,6 @@ class Terrain:
         self.space.step(1.0/fps)
         self.clock.tick(fps)
         self.submarine.sonarBody.position = self.submarine.getScreenPosition()
+        collision = pymunk.ShapeQueryInfo(self.submarine.sonar, 1)
+        print(collision)
         # print(self.submarine.physicsPolygon.body.force)

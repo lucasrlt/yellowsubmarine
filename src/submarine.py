@@ -48,6 +48,8 @@ class Submarine:
         self.sonar = pymunk.Circle(self.sonarBody, self.sonarRadius, self.sonarOffset)
         self.sonar.filter = pymunk.ShapeFilter(categories = 1, mask=pymunk.ShapeFilter.ALL_MASKS ^ 1)
 
+        
+
         self.physicsPolygon.filter = pymunk.ShapeFilter(categories=1, mask=pymunk.ShapeFilter.ALL_MASKS ^ 1)
         self.physicsSpace.add(body, self.physicsPolygon, self.sonar)
 
