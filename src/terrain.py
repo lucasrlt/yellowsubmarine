@@ -7,8 +7,16 @@ from .constants import DEBUG, WINDOW_SIZE
 # 1000 640
 
 class Terrain:
+    def hit_wall(space, arbiter, a, b):
+        print("HIT")
+        return True
+
     def __init__(self):
         self.space = pymunk.Space()
+        
+        h = self.space.add_collision_handler(4, 6)
+        h.begin = self.hit_wall
+
         self.space.gravity = 0, 10
         pymunk.pygame_util.positive_y_is_up = False
 
@@ -36,6 +44,7 @@ class Terrain:
 
         for i in range(len(self.verticesBottomList)-1):
             self.bottomLine = pymunk.Segment(self.space.static_body, self.verticesBottomList[i], self.verticesBottomList[i+1], 4)
+            self.bottomLine.collision_type = 6
 
             self.space.add(self.bottomLine)
 
@@ -44,6 +53,7 @@ class Terrain:
             print('#### Entering Top Lines Loop ####')
         for i in range(len(self.verticesTopList)-1):
             self.topLine = pymunk.Segment(self.space.static_body, self.verticesTopList[i], self.verticesTopList[i+1], 4)
+            self.topLine.collision_type = 6
 
             self.space.add(self.topLine)
 
@@ -55,6 +65,7 @@ class Terrain:
             self.boxBody = pymunk.Body(body_type=pymunk.Body.STATIC)
             self.boxBody.position = self.verticesBoxList[i]
             self.box = pymunk.Poly.create_box(self.boxBody,(20,20))
+            self.box.collision_type = 6
             self.space.add(self.box)
         if DEBUG:
             print('## Box : DONE ##')
@@ -83,5 +94,7 @@ class Terrain:
     def update(self, fps):
         self.space.step(1.0/fps)
         self.clock.tick(fps)
-        # self.submarine.sonarBody.position = self.submarine.getScreenPosition()
+        
+        for sub in self.tabSub:
+            sub.sonarBody.position = sub.getScreenPosition()
         # print(self.submarine.physicsPolygon.body.force)

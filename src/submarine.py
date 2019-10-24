@@ -50,13 +50,17 @@ class Submarine:
         self.sonarBody = pymunk.Body(0, 0, body_type=pymunk.Body.DYNAMIC)
         self.sonarBody.position = self.getScreenPosition()
         self.sonar = pymunk.Circle(self.sonarBody, self.sonarRadius, self.sonarOffset)
-        self.sonar.filter = pymunk.ShapeFilter(categories = 1, mask=pymunk.ShapeFilter.ALL_MASKS ^ 1)
 
-        self.sonar.color = self.color
-        
+        # self.sonar.filter = pymunk.ShapeFilter(categories = 1, mask=pymunk.ShapeFilter.ALL_MASKS ^ 1)
+        self.sonar.collision_type = 5
+
+        self.sonar.color = (self.color[0], self.color[1], self.color[2], 1)
+        self.physicsPolygon.collision_type = 4
 
         self.physicsPolygon.filter = pymunk.ShapeFilter(categories=1, mask=pymunk.ShapeFilter.ALL_MASKS ^ 1)
-        self.physicsSpace.add(body, self.physicsPolygon, self.sonar)
+        self.physicsSpace.add(body, self.sonar, self.physicsPolygon)
+        # self.physicsSpace.add(self.sonarBody, self.sonar)
+        # self.physicsSpace.add(c)
 
     def setPosition(self, position):
         self.position = position
