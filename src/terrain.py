@@ -1,6 +1,7 @@
 import pygame
 import pymunk
 import pymunk.pygame_util
+from .initialisation import *
 from .submarine import Submarine
 from .constants import DEBUG, WINDOW_SIZE
 # 1000 640
@@ -71,8 +72,10 @@ class Terrain:
                 self.grid2.filter = pymunk.ShapeFilter(categories = 1, mask=pymunk.ShapeFilter.ALL_MASKS ^ 1)
                 self.space.add(self.grid2)
 
-        self.submarine = Submarine(self.space, (150, (int(WINDOW_SIZE[1] / 2))- 50))
-        self.nbrSubCreated += 1
+        #self.submarine = Submarine(self.space, (150, (int(WINDOW_SIZE[1] / 2))- 50))
+        self.tabSub = createSub(self.space)
+        
+        self.nbrSubCreated = len(self.tabSub)
         #self.secondSub = Submarine(self.space, (150, int(WINDOW_SIZE[1] / 2)))
 
     
@@ -80,5 +83,11 @@ class Terrain:
     def update(self, fps):
         self.space.step(1.0/fps)
         self.clock.tick(fps)
+<<<<<<< HEAD
+        # self.submarine.sonarBody.position = self.submarine.getScreenPosition()
+=======
         self.submarine.sonarBody.position = self.submarine.getScreenPosition()
+        collision = pymunk.ShapeQueryInfo(self.submarine.sonar, 1)
+        print(collision)
+>>>>>>> 55dc66e1f188b0449feb80e066a36093377cbd7c
         # print(self.submarine.physicsPolygon.body.force)

@@ -10,15 +10,21 @@ class Propulsor:
         self.force.rotate(angle)
 
 class Submarine:
-    def __init__(self, physicsSpace, position):
+    def __init__(self, physicsSpace, position,sonarSize,subSize,forceX,forceY, isAlive):
         x, y = position
-        self.size = 15
+        self.size = subSize
+        self.isAlive = isAlive
         self.physicsSpace = physicsSpace
 
+<<<<<<< HEAD
         self.leftPropulsor = Propulsor((0, 0), (100000, 0), -math.pi / 4)
         self.bottomPropulsor = Propulsor((int(self.size + self.size / 2), -self.size), (0, 100000), math.pi / 8)
+=======
+        self.leftPropulsor = Propulsor((0, 0), (forceX, 0), 0)
+        self.bottomPropulsor = Propulsor((int(self.size + self.size / 2), -self.size), (0, forceY), 0)
+>>>>>>> f9217e91b84a8a54487c104b440650c6d81da5ec
 
-        self.sonarRadius = 50
+        self.sonarRadius = sonarSize
         self.sonarOffset = (self.size + self.size / 2, 0)
 
         self.setPosition((x, y))
@@ -48,6 +54,8 @@ class Submarine:
         self.sonarBody.position = self.getScreenPosition()
         self.sonar = pymunk.Circle(self.sonarBody, self.sonarRadius, self.sonarOffset)
         self.sonar.filter = pymunk.ShapeFilter(categories = 1, mask=pymunk.ShapeFilter.ALL_MASKS ^ 1)
+
+        
 
         self.physicsPolygon.filter = pymunk.ShapeFilter(categories=1, mask=pymunk.ShapeFilter.ALL_MASKS ^ 1)
         self.physicsSpace.add(body, self.physicsPolygon)
