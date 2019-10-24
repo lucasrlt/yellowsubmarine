@@ -23,18 +23,19 @@ class Window:
         pygame.draw.polygon(screen, (255, 0, 0), ((end[0]+10*math.sin(math.radians(rotation)), end[1]+10*math.cos(math.radians(rotation))), (end[0]+10*math.sin(math.radians(rotation-120)), end[1]+10*math.cos(math.radians(rotation-120))), (end[0]+10*math.sin(math.radians(rotation+120)), end[1]+10*math.cos(math.radians(rotation+120)))))
 
     def drawForces(self):
-        propulsor = self.terrain.submarine.leftPropulsor
-        fLen = 20
-        x = self.terrain.submarine.getScreenPosition().x - self.terrain.submarine.size - (propulsor.position[0] + math.cos(propulsor.force.angle) * fLen)
-        y = self.terrain.submarine.getScreenPosition().y - self.terrain.submarine.size + (propulsor.position[1] + math.sin(propulsor.force.angle) * fLen)
+        for sub in self.terrain.tabSub:
+            propulsor = sub.leftPropulsor
+            fLen = 20
+            x = sub.getScreenPosition().x - sub.size - (propulsor.position[0] + math.cos(propulsor.force.angle) * fLen)
+            y = sub.getScreenPosition().y - sub.size + (propulsor.position[1] + math.sin(propulsor.force.angle) * fLen)
 
-        propulsor2 = self.terrain.submarine.bottomPropulsor
-        x2 = self.terrain.submarine.getScreenPosition().x - self.terrain.submarine.size - (propulsor.position[0] + math.cos(propulsor2.force.angle) * fLen)
-        y2 = self.terrain.submarine.getScreenPosition().y + self.terrain.submarine.size + (propulsor.position[1] + math.sin(propulsor2.force.angle) * fLen)
+            propulsor2 = sub.bottomPropulsor
+            x2 = sub.getScreenPosition().x - sub.size - (propulsor.position[0] + math.cos(propulsor2.force.angle) * fLen)
+            y2 = sub.getScreenPosition().y + sub.size + (propulsor.position[1] + math.sin(propulsor2.force.angle) * fLen)
 
 
-        self.draw_arrow(self.screen, (255, 0, 0), (x,y),  (self.terrain.submarine.getScreenPosition().x - self.terrain.submarine.size, self.terrain.submarine.getScreenPosition().y - self.terrain.submarine.size))
-        self.draw_arrow(self.screen, (255, 0, 0), (x2,y2),  (self.terrain.submarine.getScreenPosition().x, self.terrain.submarine.getScreenPosition().y + self.terrain.submarine.size))
+            self.draw_arrow(self.screen, (255, 0, 0), (x,y),  (sub.getScreenPosition().x - sub.size, sub.getScreenPosition().y - sub.size))
+            self.draw_arrow(self.screen, (255, 0, 0), (x2,y2),  (sub.getScreenPosition().x, sub.getScreenPosition().y + sub.size))
 
 
     def refresh(self):
@@ -43,7 +44,7 @@ class Window:
         self.terrain.space.debug_draw(self.draw_options)
         self.terrain.update(120)
         self.stats.draw(self.screen,self.terrain)
-        self.drawForces()
+        #self.drawForces()
 
 #    def draw1(self):
         #self.terrain.submarine.sonar.color = pygame.color.THECOLORS["pink"]

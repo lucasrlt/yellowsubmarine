@@ -16,8 +16,8 @@ class Submarine:
         self.isAlive = isAlive
         self.physicsSpace = physicsSpace
 
-        self.leftPropulsor = Propulsor((0, 0), (100000, 0), -math.pi / 4)
-        self.bottomPropulsor = Propulsor((int(self.size + self.size / 2), -self.size), (0, 100000), math.pi / 8)
+        self.leftPropulsor = Propulsor((0, 0), (forceX, 0), -math.pi / 4)
+        self.bottomPropulsor = Propulsor((int(self.size + self.size / 2), -self.size), (0, forceY), math.pi / 8)
 
         self.sonarRadius = sonarSize
         self.sonarOffset = (self.size + self.size / 2, 0)
@@ -53,7 +53,7 @@ class Submarine:
         
 
         self.physicsPolygon.filter = pymunk.ShapeFilter(categories=1, mask=pymunk.ShapeFilter.ALL_MASKS ^ 1)
-        self.physicsSpace.add(body, self.physicsPolygon)
+        self.physicsSpace.add(body, self.physicsPolygon, self.sonar)
 
     def setPosition(self, position):
         self.position = position
