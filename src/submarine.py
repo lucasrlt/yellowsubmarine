@@ -16,7 +16,7 @@ class Submarine:
         self.isAlive = isAlive
         self.physicsSpace = physicsSpace
         self.color = color
-        self.time = -1
+        self.lifetime = -1
         self.distance = -1
 
         self.leftPropulsor = Propulsor((0, 0), (forceX, 0), -math.pi / 4)
