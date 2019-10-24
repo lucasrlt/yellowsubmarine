@@ -9,15 +9,16 @@ class Propulsor:
         self.force.rotate(angle)
 
 class Submarine:
-    def __init__(self, physicsSpace, position):
+    def __init__(self, physicsSpace, position,sonarSize,subSize,forceX,forceY, isAlive):
         x, y = position
-        self.size = 15
+        self.size = subSize
+        self.isAlive = isAlive
         self.physicsSpace = physicsSpace
 
-        self.leftPropulsor = Propulsor((0, 0), (50000, 0), 0)
-        self.bottomPropulsor = Propulsor((int(self.size + self.size / 2), -self.size), (0, -50000), 0)
+        self.leftPropulsor = Propulsor((0, 0), (forceX, 0), 0)
+        self.bottomPropulsor = Propulsor((int(self.size + self.size / 2), -self.size), (0, forceY), 0)
 
-        self.sonarRadius = 50
+        self.sonarRadius = sonarSize
         self.sonarOffset = (self.size + self.size / 2, 0)
 
         self.setPosition((x, y))

@@ -8,11 +8,14 @@ class Stats:
     def __init__(self):
 
         #Position Text Sonar
-        self.posXSonarText = 100
-        self.posYSonarText = 500
+        self.posXSonarText = 130
+        self.posYSonarText = 540
         #position nbrSub Text
-        self.nbrSubX = 100
+        self.nbrSubX = 130
         self.nbrSubY = 520
+        #Position nbr Gen text
+        self.posXGenText = 130
+        self.posYGenText = 500
 
 
         self.green = (0,255,0) #Couleur du texte
@@ -31,8 +34,12 @@ class Stats:
         self.nbrSubTextRect.topleft = (self.nbrSubX, self.nbrSubY)
         screen.blit(self.nbrSubText, self.nbrSubTextRect)
 
-        self.sonarText = self.font.render("Ray_Sonar = " + str(terrain.submarine.sonarRadius), True, self.green)
+        self.sonarText = self.font.render("Ray_Sonar = " + str(terrain.tabSub[0].sonarRadius), True, self.green)
         self.sonarTextRect = self.sonarText.get_rect()
         self.sonarTextRect.topleft = (self.posXSonarText, self.posYSonarText)
         screen.blit(self.sonarText, self.sonarTextRect)
 
+        self.nbrGenText = self.font.render("Gen Number = **To be edited", True, self.green)
+        self.nbrGenTextRect = self.nbrGenText.get_rect()
+        self.nbrGenTextRect.topleft = (self.posXGenText,self.posYGenText)
+        screen.blit(self.nbrGenText,self.nbrGenTextRect)
