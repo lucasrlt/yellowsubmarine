@@ -9,15 +9,17 @@ class Propulsor:
         self.force.rotate(angle)
 
 class Submarine:
-    def __init__(self, physicsSpace, position):
+    def __init__(self, physicsSpace, position,sonarSize,subSize,forceX,forceY, isAlive, color):
         x, y = position
-        self.size = 15
+        self.size = subSize
+        self.isAlive = isAlive
         self.physicsSpace = physicsSpace
+        self.color = color
 
-        self.leftPropulsor = Propulsor((0, 0), (50000, 0), 0)
-        self.bottomPropulsor = Propulsor((int(self.size + self.size / 2), -self.size), (0, -50000), 0)
+        self.leftPropulsor = Propulsor((0, 0), (forceX, 0), 0)
+        self.bottomPropulsor = Propulsor((int(self.size + self.size / 2), -self.size), (0, forceY), 0)
 
-        self.sonarRadius = 50
+        self.sonarRadius = sonarSize
         self.sonarOffset = (self.size + self.size / 2, 0)
 
         self.setPosition((x, y))
@@ -42,12 +44,14 @@ class Submarine:
         body.apply_force_at_local_point(self.bottomPropulsor.force, self.bottomPropulsor.position)
 
         self.physicsPolygon = pymunk.Poly(body, self.polygonVertices, None, 1)
+        self.physicsPolygon.color = self.color
         
         self.sonarBody = pymunk.Body(0, 0, body_type=pymunk.Body.DYNAMIC)
         self.sonarBody.position = self.getScreenPosition()
         self.sonar = pymunk.Circle(self.sonarBody, self.sonarRadius, self.sonarOffset)
         self.sonar.filter = pymunk.ShapeFilter(categories = 1, mask=pymunk.ShapeFilter.ALL_MASKS ^ 1)
 
+        self.sonar.color = self.color
         
 
         self.physicsPolygon.filter = pymunk.ShapeFilter(categories=1, mask=pymunk.ShapeFilter.ALL_MASKS ^ 1)
