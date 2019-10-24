@@ -16,13 +16,8 @@ class Submarine:
         self.isAlive = isAlive
         self.physicsSpace = physicsSpace
 
-<<<<<<< HEAD
         self.leftPropulsor = Propulsor((0, 0), (100000, 0), -math.pi / 4)
         self.bottomPropulsor = Propulsor((int(self.size + self.size / 2), -self.size), (0, 100000), math.pi / 8)
-=======
-        self.leftPropulsor = Propulsor((0, 0), (forceX, 0), 0)
-        self.bottomPropulsor = Propulsor((int(self.size + self.size / 2), -self.size), (0, forceY), 0)
->>>>>>> f9217e91b84a8a54487c104b440650c6d81da5ec
 
         self.sonarRadius = sonarSize
         self.sonarOffset = (self.size + self.size / 2, 0)
