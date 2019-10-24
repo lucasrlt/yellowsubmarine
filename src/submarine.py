@@ -1,5 +1,6 @@
 import pymunk
 import pymunk.pygame_util
+import math
 from .constants import WINDOW_SIZE
 
 class Propulsor:
@@ -14,8 +15,8 @@ class Submarine:
         self.size = 15
         self.physicsSpace = physicsSpace
 
-        self.leftPropulsor = Propulsor((0, 0), (50000, 0), 0)
-        self.bottomPropulsor = Propulsor((int(self.size + self.size / 2), -self.size), (0, -50000), 0)
+        self.leftPropulsor = Propulsor((0, 0), (100000, 0), -math.pi / 4)
+        self.bottomPropulsor = Propulsor((int(self.size + self.size / 2), -self.size), (0, 100000), math.pi / 8)
 
         self.sonarRadius = 50
         self.sonarOffset = (self.size + self.size / 2, 0)
@@ -49,7 +50,7 @@ class Submarine:
         self.sonar.filter = pymunk.ShapeFilter(categories = 1, mask=pymunk.ShapeFilter.ALL_MASKS ^ 1)
 
         self.physicsPolygon.filter = pymunk.ShapeFilter(categories=1, mask=pymunk.ShapeFilter.ALL_MASKS ^ 1)
-        self.physicsSpace.add(body, self.physicsPolygon, self.sonar)
+        self.physicsSpace.add(body, self.physicsPolygon)
 
     def setPosition(self, position):
         self.position = position
