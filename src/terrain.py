@@ -36,6 +36,7 @@ class Terrain:
 
         for i in range(len(self.verticesBottomList)-1):
             self.bottomLine = pymunk.Segment(self.space.static_body, self.verticesBottomList[i], self.verticesBottomList[i+1], 4)
+            self.bottomLine.filter = pymunk.ShapeFilter(categories = 2, mask=pymunk.ShapeFilter.ALL_MASKS ^ 2)
 
             self.space.add(self.bottomLine)
 
@@ -44,7 +45,7 @@ class Terrain:
             print('#### Entering Top Lines Loop ####')
         for i in range(len(self.verticesTopList)-1):
             self.topLine = pymunk.Segment(self.space.static_body, self.verticesTopList[i], self.verticesTopList[i+1], 4)
-
+            self.topLine.filter = pymunk.ShapeFilter(categories = 2, mask=pymunk.ShapeFilter.ALL_MASKS ^ 2)
             self.space.add(self.topLine)
 
         if DEBUG: 
