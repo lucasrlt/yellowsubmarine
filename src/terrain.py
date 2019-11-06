@@ -8,14 +8,38 @@ from .constants import DEBUG, WINDOW_SIZE
 
 class Terrain:
     def hit_wall(space, arbiter, a, b):
-        print("HIT")
+        print("HIT WALL")
         return True
+
+    def find_submarine(self, sonar_pos): 
+        for sub in self.tabSub:
+            if sub.sonar.body.position == sonar_pos:
+                return sub
+
+    def trigger_sonar(space, arbiter, n, data):
+        sonar_pos = arbiter.shapes[0].body.position
+        obj_pos = arbiter.contact_point_set.points[0].point_a
+        
+        sub = data["terrain"].find_submarine(sonar_pos)
+        if sonar_pos.y > obj_pos.y:
+            sub.sonar_detect('up')
+        elif sonar_pos.y < obj_pos.y:
+            sub.sonar_detect('down')
+
+        return True
+
+
 
     def __init__(self):
         self.space = pymunk.Space()
         
         h = self.space.add_collision_handler(4, 6)
         h.begin = self.hit_wall
+
+        w = self.space.add_collision_handler(5, 6)
+        w.data["terrain"] = self
+        w.begin = self.trigger_sonar
+
 
         self.space.gravity = 0, 10
         pymunk.pygame_util.positive_y_is_up = False
@@ -43,6 +67,7 @@ class Terrain:
             print('#### Entering Bottom Lines Loop ####')
 
         for i in range(len(self.verticesBottomList)-1):
+            body = pymunk.Body(body_type=pymunk.Body.STATIC)
             self.bottomLine = pymunk.Segment(self.space.static_body, self.verticesBottomList[i], self.verticesBottomList[i+1], 4)
             self.bottomLine.collision_type = 6
 
@@ -88,7 +113,6 @@ class Terrain:
         
         self.nbrSubCreated = len(self.tabSub)
         #self.secondSub = Submarine(self.space, (150, int(WINDOW_SIZE[1] / 2)))
-
     
     # Mise à jour de l'image
     def update(self, fps):
@@ -96,5 +120,5 @@ class Terrain:
         self.clock.tick(fps)
         
         for sub in self.tabSub:
-            sub.sonarBody.position = sub.getScreenPosition()
+            sub.sonar.body.position = sub.getScreenPosition()
         # print(self.submarine.physicsPolygon.body.force)

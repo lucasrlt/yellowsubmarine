@@ -41,8 +41,8 @@ class Window:
     def refresh(self):
         pygame.display.flip()
         self.screen.fill((0, 0, 0))
-        self.terrain.space.debug_draw(self.draw_options)
         self.terrain.update(120)
+        self.terrain.space.debug_draw(self.draw_options)
         self.stats.draw(self.screen,self.terrain)
         #self.drawForces()
 
