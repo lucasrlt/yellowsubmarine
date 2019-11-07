@@ -36,23 +36,23 @@ def stepPos(terrain):
     return stepPos
 
 def sonarMinMax(terrain, step):
-   minMax(500, 0)
+    minMax(500, 0)
 
-   for sub in terrain.tabSub:
-       if sub.getPosition() >= step:
-           if sub.sonarRadius < minMax[1]:
+    for sub in terrain.tabSub:
+        if sub.getPosition() >= step:
+            if sub.sonarRadius < minMax[1]:
                 minMax[1] = sub.sonarRadius
             elif sub.sonarRadius > minMax[2]:
                 minMax[2] = sub.sonarRadius
-    
+
     return minMax
     
 def sizeMinMax(terrain, step):
-   minMax(500, 0)
+    minMax(500, 0)
 
-   for sub in terrain.tabSub:
-       if sub.getPosition() >= step:
-           if sub.size < minMax[1]:
+    for sub in terrain.tabSub:
+        if sub.getPosition() >= step:
+            if sub.size < minMax[1]:
                 minMax[1] = sub.size
             elif sub.size > minMax[2]:
                 minMax[2] = sub.size
@@ -60,11 +60,11 @@ def sizeMinMax(terrain, step):
     return minMax
 
 def forceXMinMax(terrain, step):
-   minMax(500, 0)
+    minMax(500, 0)
 
-   for sub in terrain.tabSub:
-       if sub.getPosition() >= step:
-           if sub.forceX < minMax[1]:
+    for sub in terrain.tabSub:
+        if sub.getPosition() >= step:
+            if sub.forceX < minMax[1]:
                 minMax[1] = sub.forceX
             elif sub.forceX > minMax[2]:
                 minMax[2] = sub.forceX
@@ -72,11 +72,11 @@ def forceXMinMax(terrain, step):
     return minMax
 
 def forceYMinMax(terrain, step):
-   minMax(500, 0)
+    minMax(500, 0)
 
-   for sub in terrain.tabSub:
-       if sub.getPosition() >= step:
-           if sub.forceY < minMax[1]:
+    for sub in terrain.tabSub:
+        if sub.getPosition() >= step:
+            if sub.forceY < minMax[1]:
                 minMax[1] = sub.forceY
             elif sub.forceY > minMax[2]:
                 minMax[2] = sub.forceY
@@ -85,14 +85,14 @@ def forceYMinMax(terrain, step):
 
 
 def newGen(terrain):
- if elapsedTime(terrain) > (terrain.geneTime * (terrain.gene +1)):
-     step = stepPos(terrain)
-     minMaxSonar = sonarMinMax(terrain, step)
-     minMaxSize = sizeMinMax(terrain, step)
-     minMaxForceX = forceXMinMax(terrain, step)
-     minMaxForceY = forceYMinMax(terrain, step)
+    if elapsedTime(terrain) > (terrain.geneTime * (terrain.gene +1)):
+        step = stepPos(terrain)
+        minMaxSonar = sonarMinMax(terrain, step)
+        minMaxSize = sizeMinMax(terrain, step)
+        minMaxForceX = forceXMinMax(terrain, step)
+        minMaxForceY = forceYMinMax(terrain, step)
 
-     
+
 
       
     
