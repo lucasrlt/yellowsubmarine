@@ -7,13 +7,23 @@ from .constants import DEBUG, WINDOW_SIZE
 # 1000 640
 
 class Terrain:
-    def hit_wall(space, arbiter, a, b):
-        print("HIT WALL")
+    def hit_wall(space, arbiter, a, data):
+        submarine_pos = arbiter.shapes[0].body.position
+        sub = data["terrain"].find_real_submarine(submarine_pos)   
+        sub.isAlive = False 
+
+        data["terrain"].space.remove(sub.physicsPolygon, sub.sonar, sub.sonar.body, sub.physicsPolygon.body)
+        data["terrain"].nbrSubCreated -= 1
         return True
 
     def find_submarine(self, sonar_pos): 
         for sub in self.tabSub:
             if sub.sonar.body.position == sonar_pos:
+                return sub
+    
+    def find_real_submarine(self, pos): 
+        for sub in self.tabSub:
+            if sub.physicsPolygon.body.position == pos:
                 return sub
 
     def trigger_sonar(space, arbiter, n, data):
@@ -34,6 +44,7 @@ class Terrain:
         self.space = pymunk.Space()
         
         h = self.space.add_collision_handler(4, 6)
+        h.data["terrain"] = self
         h.begin = self.hit_wall
 
         w = self.space.add_collision_handler(5, 6)
@@ -118,6 +129,9 @@ class Terrain:
     def update(self, fps):
         self.space.step(1.0/fps)
         self.clock.tick(fps)
+
+        if self.nbrSubCreated < 0:
+            self.nbrSubCreated = 0
         
         for sub in self.tabSub:
             sub.sonar.body.position = sub.getScreenPosition()
