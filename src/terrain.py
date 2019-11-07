@@ -12,7 +12,7 @@ class Terrain:
         sub = data["terrain"].find_real_submarine(submarine_pos)   
         sub.isAlive = False 
 
-        data["terrain"].space.remove(sub.physicsPolygon, sub.sonar, sub.physicsPolygon.body)
+        data["terrain"].space.remove(sub.physicsPolygon, sub.sonar, sub.sonar.body, sub.physicsPolygon.body)
 
         return True
 

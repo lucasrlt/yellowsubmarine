@@ -1,7 +1,7 @@
 import pymunk
 import pymunk.pygame_util
 import math
-from .constants import WINDOW_SIZE
+from .constants import *
 
 class Propulsor:
     def __init__(self, position, force, angle = 0):
@@ -81,6 +81,7 @@ class Submarine:
             self.bottomPropulsor.force.y =  -self.physicsPolygon.body.velocity_at_local_point(self.bottomPropulsor.position).y
         if direction == 'down':
             self.bottomPropulsor.force.y = self.forceY * 4
-        print("SONAR TRIGGER ", direction)
+        if DEBUG:
+            print("SONAR TRIGGER ", direction)
         self.physicsPolygon.body.apply_force_at_local_point(self.bottomPropulsor.force, self.bottomPropulsor.position)
         
