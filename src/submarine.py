@@ -78,9 +78,9 @@ class Submarine:
 
     def sonar_detect(self, direction):
         if direction == 'up':
-            self.bottomPropulsor.force.y =  -self.physicsPolygon.body.velocity_at_local_point(self.bottomPropulsor.position).y
+            self.bottomPropulsor.force.y =  -self.forceY * 3
         if direction == 'down':
-            self.bottomPropulsor.force.y = self.forceY * 4
+            self.bottomPropulsor.force.y = self.forceY * 3
         if DEBUG:
             print("SONAR TRIGGER ", direction)
         self.physicsPolygon.body.apply_force_at_local_point(self.bottomPropulsor.force, self.bottomPropulsor.position)

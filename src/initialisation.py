@@ -6,7 +6,7 @@ def createSub(space):
     tab = []
     for i in range(10):
         isAlive = True
-        sonar = random.randint(50,50)
+        sonar = random.randint(0,200)
         size = random.randint(10,20)
         forceX = random.randint(25000,100000)
         forceY = random.randint(-50000,0)

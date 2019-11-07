@@ -7,8 +7,7 @@ def elapsedTime(start):
     now = time.time()
     return now - start
 
-def stepLifeTime():
-    
+def stepLifeTime():    
     mini = Terrain.tabSub[0].lifetime
     maxi = Terrain.tabSub[0].lifetime
 
