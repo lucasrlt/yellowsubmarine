@@ -84,4 +84,3 @@ class Submarine:
         if DEBUG:
             print("SONAR TRIGGER ", direction)
         self.physicsPolygon.body.apply_force_at_local_point(self.bottomPropulsor.force, self.bottomPropulsor.position)
-        

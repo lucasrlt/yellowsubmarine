@@ -57,7 +57,7 @@ class Window:
                 verts.append((x,y))
             if sub.isAlive:
                 pygame.draw.polygon(self.screen,sub.color,verts,0)
-                pygame.draw.circle(self.screen, sub.color, (int(sub.physicsPolygon.body.position.x + sub.sonarOffset[0]), int(sub.physicsPolygon.body.position.y + sub.sonarOffset[1])),sub.sonarRadius, 1)
+                pygame.draw.circle(self.screen, sub.color, (int(sub.getScreenPosition()[0] + sub.sonarOffset[0]), int(sub.getScreenPosition()[1] + sub.sonarOffset[1])),sub.sonarRadius, 1)
             verts = []
     
     
