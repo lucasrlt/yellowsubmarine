@@ -19,6 +19,7 @@ class Submarine:
         self.lifetime = -1
         self.distance = -1
 
+
         self.forceX = forceX
         self.forceY = forceY
 
