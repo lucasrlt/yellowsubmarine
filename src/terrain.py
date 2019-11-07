@@ -1,6 +1,7 @@
 import pygame
 import pymunk
 import pymunk.pygame_util
+import time
 from .initialisation import *
 from .submarine import Submarine
 from .constants import DEBUG, WINDOW_SIZE
@@ -42,6 +43,9 @@ class Terrain:
 
     def __init__(self):
         self.space = pymunk.Space()
+        self.start = time.time
+        self.gene = 0
+        self.geneTime = 30
         
         h = self.space.add_collision_handler(4, 6)
         h.data["terrain"] = self
