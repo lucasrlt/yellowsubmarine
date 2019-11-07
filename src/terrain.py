@@ -73,6 +73,8 @@ class Terrain:
         (1850,200),(1900,50),(1950,100),(2000,150)]
         #28
         
+        
+
         self.verticesBoxList = [(300,200),(400,325),(600,250),(800,375)]
         self.nbrSubCreated = 0
 
@@ -97,6 +99,11 @@ class Terrain:
 
             self.space.add(self.topLine)
 
+        self.startingLines = pymunk.Segment(self.space.static_body, (15,0),(15,640),4)
+        self.startingLines.collision_type = 6
+        self.space.add(self.startingLines)
+
+
         if DEBUG: 
             print('## Top Lines : DONE ##')
             print('### Entering Block Creation Loop ####')
@@ -110,6 +117,8 @@ class Terrain:
         if DEBUG:
             print('## Box : DONE ##')
 
+
+        
 
         # Affichage d'une grille en DEBUG pour une lecture plus facile des coordonnées (1 ligne tout les 100 pixels)
         if DEBUG:
@@ -139,4 +148,6 @@ class Terrain:
         
         for sub in self.tabSub:
             sub.sonar.body.position = sub.getScreenPosition()
+
+                
         # print(self.submarine.physicsPolygon.body.force)
