@@ -4,7 +4,7 @@ from .submarine import Submarine
 
 def createSub(space):
     tab = []
-    for i in range(1):
+    for i in range(5):
         isAlive = True
         sonar = random.randint(50,50)
         size = random.randint(10,20)
