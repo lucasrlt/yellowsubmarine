@@ -62,11 +62,8 @@ class Submarine:
         self.physicsPolygon.collision_type = 4
 
         self.physicsPolygon.filter = pymunk.ShapeFilter(categories=1, mask=pymunk.ShapeFilter.ALL_MASKS ^ 1)
-        # self.physicsSpace.add(body, self.sonar, self.physicsPolygon)
         self.physicsSpace.add(body, self.physicsPolygon);
         self.physicsSpace.add(sonarBody, self.sonar);
-        # self.physicsSpace.add(self.sonarBody, self.sonar)
-        # self.physicsSpace.add(c)
 
     def setPosition(self, position):
         self.position = position
@@ -80,6 +77,7 @@ class Submarine:
             self.bottomPropulsor.force.y =  -self.physicsPolygon.body.velocity_at_local_point(self.bottomPropulsor.position).y
         if direction == 'down':
             self.bottomPropulsor.force.y = self.forceY * 4
-        print("SONAR TRIGGER ", direction)
         self.physicsPolygon.body.apply_force_at_local_point(self.bottomPropulsor.force, self.bottomPropulsor.position)
-        
+
+    def getPosition(self):
+        return self.physicsPolygon.body.position
