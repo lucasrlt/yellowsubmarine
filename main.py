@@ -8,7 +8,7 @@ if __name__ == "__main__":
     start = time.time()
     play = True
     while(play):
-#        win.draw1()
         win.refresh()
+        
         play = win.close()
         continue

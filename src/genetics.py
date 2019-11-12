@@ -1,6 +1,8 @@
 import time
+import random
 from .submarine import Submarine
 from .terrain import Terrain
+from .constants import WINDOW_SIZE
 
 
 def elapsedTime(terrain):
@@ -83,15 +85,40 @@ def forceYMinMax(terrain, step):
     
     return minMax
 
+def endGene(terrain):
+    deadSub = 0
+    for sub in terrain.tabSub:
+        if sub.isAlive == False:
+            deadSub += 1
+        else:
+            return 0
+    
+    if((deadSub == 10) or (elapsedTime(terrain) % (terrain.geneTime * (terrain.gene + 1)))  > terrain.geneTime):
+        return 1 
 
-def newGen(terrain):
-    if elapsedTime(terrain) > (terrain.geneTime * (terrain.gene +1)):
-        step = stepPos(terrain)
-        minMaxSonar = sonarMinMax(terrain, step)
-        minMaxSize = sizeMinMax(terrain, step)
-        minMaxForceX = forceXMinMax(terrain, step)
-        minMaxForceY = forceYMinMax(terrain, step)
 
+
+def newGen(space, terrain):
+
+    step = stepPos(terrain)
+    minMaxSonar = sonarMinMax(terrain, step)
+    minMaxSize = sizeMinMax(terrain, step)
+    minMaxForceX = forceXMinMax(terrain, step)
+    minMaxForceY = forceYMinMax(terrain, step)
+    isAlive = True
+    tab  = []
+    
+    for i in range(10):
+        sonar = random.randint(minMaxSonar[0], minMaxSonar[1])
+        size = random.randint(minMaxSize[0], minMaxSize[1])
+        forceX = random.randint(minMaxForceX[0], minMaxForceX[1])
+        forceY = random.randint(minMaxForceY[0], minMaxForceY[1])
+        randR = random.randint(0,255)
+        randG = random.randint(0,255)
+        randB = random.randint(0,255)
+        tab.append(Submarine(space, (150, (int(WINDOW_SIZE[1] / 2))- 50),sonar,size,forceX,forceY,isAlive,(randR,randG,randB,255)))
+    
+    return tab
 
 
       
