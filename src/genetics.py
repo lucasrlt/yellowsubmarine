@@ -5,9 +5,9 @@ from .terrain import Terrain
 from .constants import WINDOW_SIZE
 
 
-def elapsedTime(terrain):
+def elapsedTime(start):
     now = time.time()
-    return now - terrain.start
+    return now - start
 
 def stepLifeTime(terrain):
     
@@ -85,20 +85,7 @@ def forceYMinMax(terrain, step):
     
     return minMax
 
-def endGene(terrain):
-    deadSub = 0
-    for sub in terrain.tabSub:
-        if sub.isAlive == False:
-            deadSub += 1
-        else:
-            return 0
-    
-    if((deadSub == 10) or (elapsedTime(terrain) % (terrain.geneTime * (terrain.gene + 1)))  > terrain.geneTime):
-        return 1 
-
-
-
-def newGen(space, terrain):
+def newGen(terrain):
 
     step = stepPos(terrain)
     minMaxSonar = sonarMinMax(terrain, step)
@@ -116,7 +103,7 @@ def newGen(space, terrain):
         randR = random.randint(0,255)
         randG = random.randint(0,255)
         randB = random.randint(0,255)
-        tab.append(Submarine(space, (150, (int(WINDOW_SIZE[1] / 2))- 50),sonar,size,forceX,forceY,isAlive,(randR,randG,randB,255)))
+        tab.append(Submarine(terrain.space, (150, (int(WINDOW_SIZE[1] / 2))- 50),sonar,size,forceX,forceY,isAlive,(randR,randG,randB,255)))
     
     return tab
 

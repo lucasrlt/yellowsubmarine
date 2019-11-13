@@ -43,7 +43,6 @@ class Terrain:
 
     def __init__(self):
         self.space = pymunk.Space()
-        self.start = time.time
         self.gene = 0
         self.geneTime = 30
         
@@ -150,5 +149,3 @@ class Terrain:
         for sub in self.tabSub:
             sub.sonar.body.position = sub.getScreenPosition()
 
-                
-        # print(self.submarine.physicsPolygon.body.force)
