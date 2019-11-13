@@ -8,7 +8,10 @@ if __name__ == "__main__":
     start = time.time()
     play = True
     while(play):
-#        win.draw1()
         win.refresh()
+        if(( win.terrain.nbrSubCreated == 0) or (elapsedTime(start) % (win.terrain.geneTime * (win.terrain.gene + 1)))  > win.terrain.geneTime):
+            win.terrain.tabSub = newGen(win.terrain)
+            win.terrain.gene += 1
+        
         play = win.close()
         continue
