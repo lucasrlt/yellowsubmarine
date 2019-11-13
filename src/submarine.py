@@ -27,7 +27,7 @@ class Submarine:
         self.bottomPropulsor = Propulsor((int(self.size + self.size / 2), -self.size), (0, forceY), math.pi / 8)
 
         self.sonarRadius = sonarSize
-        self.sonarOffset = (w)
+        self.sonarOffset = (self.size + self.size / 2, 0)
 
         self.setPosition((x, y))
        
