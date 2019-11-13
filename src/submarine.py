@@ -27,7 +27,7 @@ class Submarine:
         self.bottomPropulsor = Propulsor((int(self.size + self.size / 2), -self.size), (0, forceY), math.pi / 8)
 
         self.sonarRadius = sonarSize
-        self.sonarOffset = (self.size + self.size / 2, 0)
+        self.sonarOffset = (w)
 
         self.setPosition((x, y))
        
@@ -84,3 +84,6 @@ class Submarine:
         if DEBUG:
             print("SONAR TRIGGER ", direction)
         self.physicsPolygon.body.apply_force_at_local_point(self.bottomPropulsor.force, self.bottomPropulsor.position)
+
+    def getPosition(self):
+        return self.physicsPolygon.body.position
