@@ -41,7 +41,7 @@ class Terrain:
 
 
 
-    def __init__(self):
+    def __init__(self, tabInit):
         self.space = pymunk.Space()
         self.gene = 0
         self.geneTime = 30
@@ -68,14 +68,13 @@ class Terrain:
         #30
         self.verticesTopList = [(0,100),(150,150),(200,125),(225,75),(275,50),(350,100),
         (450,150),(550,175),(650,200),(750,200),(850,150),(900,100),(950,175),(1000,175),
-        (1100,300),(1200,130),(1300,130),(1350,120),(1500,200),(1600,250),(1650,200),(1700,100),(1750,125),(1800,200),
+        (1100,200),(1200,130),(1300,130),(1350,120),(1500,200),(1600,250),(1650,200),(1700,100),(1750,125),(1800,200),
         (1850,200),(1900,50),(1950,100),(2000,150)]
         #28
         
         
 
-
-        self.verticesBoxList = [(300,200),(400,325),(600,250),(800,375),(1300,250)]
+        self.verticesBoxList = [(300,200),(400,325),(600,250),(800,375)]
         self.nbrSubCreated = 0
 
         if DEBUG:
@@ -133,7 +132,10 @@ class Terrain:
                 self.space.add(self.grid2)
 
         #self.submarine = Submarine(self.space, (150, (int(WINDOW_SIZE[1] / 2))- 50))
-        self.tabSub = createSub(self.space)
+        if tabInit ==[]:
+            self.tabSub = createSub(self.space)
+        else:
+            self.tabSub = tabInit
         
         self.nbrSubCreated = len(self.tabSub)
         #self.secondSub = Submarine(self.space, (150, int(WINDOW_SIZE[1] / 2)))

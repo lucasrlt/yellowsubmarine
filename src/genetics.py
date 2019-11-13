@@ -25,81 +25,93 @@ def stepLifeTime(terrain):
 
 def stepPos(terrain):
 
-    mini = terrain.tabSub[0].getPosition()
-    maxi = terrain.tabSub[0].getPosition()
+    mini = terrain.tabSub[0].getScreenPosition()
+    maxi = terrain.tabSub[0].getScreenPosition()
 
     for sub in terrain.tabSub:
-        if mini > sub.getPosition():
-            mini = sub.getPosition()
-        elif maxi < sub.getPosition():
-            maxi = sub.getPosition()
+        temp = sub.getScreenPosition()
+        if mini[0] > temp[0]:
+            mini[0] = temp[0]
+        elif maxi[0] < temp[0]:
+            maxi[0] = temp[0]
     
-    stepPos = mini + (maxi - mini)*0.80
+    stepPos = mini[0] + (maxi[0] - mini[0])*0.50
     return stepPos
 
 def sonarMinMax(terrain, step):
-    minMax(500, 0)
+    mini = 500
+    maxi = 0
 
     for sub in terrain.tabSub:
-        if sub.getPosition() >= step:
-            if sub.sonarRadius < minMax[1]:
-                minMax[1] = sub.sonarRadius
-            elif sub.sonarRadius > minMax[2]:
-                minMax[2] = sub.sonarRadius
+        temp = sub.getScreenPosition()
+        
+        if temp[0] >= step:
+            print(sub.sonarRadius)
+            if sub.sonarRadius < mini:
+                mini = sub.sonarRadius
+            if sub.sonarRadius > maxi:
+                maxi = sub.sonarRadius
 
-    return minMax
+    return mini, maxi
     
 def sizeMinMax(terrain, step):
-    minMax(500, 0)
+    mini = 500
+    maxi = 0
 
     for sub in terrain.tabSub:
-        if sub.getPosition() >= step:
-            if sub.size < minMax[1]:
-                minMax[1] = sub.size
-            elif sub.size > minMax[2]:
-                minMax[2] = sub.size
+        temp = sub.getScreenPosition()
+        if temp[0] >= step:
+            if sub.size < mini:
+                mini = sub.size
+            if sub.size > maxi:
+                maxi = sub.size
     
-    return minMax
+    return mini, maxi
 
 def forceXMinMax(terrain, step):
-    minMax(500, 0)
+    mini = 500
+    maxi = 0
 
     for sub in terrain.tabSub:
-        if sub.getPosition() >= step:
-            if sub.forceX < minMax[1]:
-                minMax[1] = sub.forceX
-            elif sub.forceX > minMax[2]:
-                minMax[2] = sub.forceX
+        temp = sub.getScreenPosition()
+        if temp[0] >= step:
+            if sub.forceX < mini:
+                mini = sub.forceX
+            if sub.forceX > maxi:
+                maxi = sub.forceX
     
-    return minMax
+    return mini, maxi
 
 def forceYMinMax(terrain, step):
-    minMax(500, 0)
+    mini = 500
+    maxi = 0
 
     for sub in terrain.tabSub:
-        if sub.getPosition() >= step:
-            if sub.forceY < minMax[1]:
-                minMax[1] = sub.forceY
-            elif sub.forceY > minMax[2]:
-                minMax[2] = sub.forceY
+        temp = sub.getScreenPosition()
+        if temp[0] >= step:
+            if sub.forceY < mini:
+                mini = sub.forceY
+            if sub.forceY > maxi:
+                maxi = sub.forceY
     
-    return minMax
+    return mini, maxi
 
 def newGen(terrain):
 
     step = stepPos(terrain)
-    minMaxSonar = sonarMinMax(terrain, step)
-    minMaxSize = sizeMinMax(terrain, step)
-    minMaxForceX = forceXMinMax(terrain, step)
-    minMaxForceY = forceYMinMax(terrain, step)
+    miniSonar, maxiSonar = sonarMinMax(terrain, step)
+    miniSize, maxiSize = sizeMinMax(terrain, step)
+    miniForceX, maxiForceX = forceXMinMax(terrain, step)
+    miniForceY, maxiForceY = forceYMinMax(terrain, step)
     isAlive = True
     tab  = []
+    print(miniSonar, maxiSonar)
     
     for i in range(10):
-        sonar = random.randint(minMaxSonar[0], minMaxSonar[1])
-        size = random.randint(minMaxSize[0], minMaxSize[1])
-        forceX = random.randint(minMaxForceX[0], minMaxForceX[1])
-        forceY = random.randint(minMaxForceY[0], minMaxForceY[1])
+        sonar = random.randint(miniSonar, maxiSonar)
+        size = random.randint(miniSize, maxiSize)
+        forceX = random.randint(miniForceX, maxiForceX)
+        forceY = random.randint(miniForceY, maxiForceY)
         randR = random.randint(0,255)
         randG = random.randint(0,255)
         randB = random.randint(0,255)

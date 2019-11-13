@@ -39,7 +39,7 @@ class Stats:
         self.sonarTextRect.topleft = (self.posXSonarText, self.posYSonarText)
         screen.blit(self.sonarText, self.sonarTextRect)
 
-        self.nbrGenText = self.font.render("Gen Number = **To be edited", True, self.green)
+        self.nbrGenText = self.font.render("Gen Number = " + str(terrain.gene), True, self.green)
         self.nbrGenTextRect = self.nbrGenText.get_rect()
         self.nbrGenTextRect.topleft = (self.posXGenText,self.posYGenText)
         screen.blit(self.nbrGenText,self.nbrGenTextRect)
