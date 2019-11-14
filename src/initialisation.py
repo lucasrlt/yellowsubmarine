@@ -7,23 +7,13 @@ def createSub(space):
     tab = []
     for i in range(GEN_SIZE):
         isAlive = True
-<<<<<<< HEAD
         sonar = random.randint(2, 200)
         size = random.randint(10, 20)
-        forceX = random.randint(25000, 100000)
-        forceY = random.randint(-50000, 0)
+        forceX = random.randint(-100000, 100000)
+        forceY = random.randint(-50000, 50000)
         randR = random.randint(0, 255)
         randG = random.randint(0, 255)
         randB = random.randint(0, 255)
-        tab.append(Submarine(space, (150, (int(WINDOW_SIZE[1] / 2)) - 50), sonar, size, forceX, forceY, isAlive, (randR, randG, randB, 255)))
-=======
-        sonar = random.randint(2,200)
-        size = random.randint(10,20)
-        forceX = random.randint(-100000,100000)
-        forceY = random.randint(-50000,50000)
-        randR = random.randint(0,255)
-        randG = random.randint(0,255)
-        randB = random.randint(0,255)
-        tab.append(Submarine(space, (150, (int(WINDOW_SIZE[1] / 2))- 50),sonar,size,forceX,forceY,isAlive,(randR,randG,randB,255)))
->>>>>>> c6a0b48e2d94f68ef3e45e7c107a2164fa523f11
+        tab.append(Submarine(space, (150, (int(
+            WINDOW_SIZE[1] / 2)) - 50), sonar, size, forceX, forceY, isAlive, (randR, randG, randB, 255)))
     return tab
