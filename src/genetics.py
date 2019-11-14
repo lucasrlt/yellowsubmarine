@@ -38,73 +38,29 @@ def stepPos(terrain):
     stepPos = mini[0] + (maxi[0] - mini[0])*0.50
     return stepPos
 
-def sonarMinMax(terrain, step):
-    mini = 500
+def getMinMax(attr, terrain, step):
+    mini = 1000
     maxi = 0
 
     for sub in terrain.tabSub:
-        temp = sub.getScreenPosition()
-        
-        if temp[0] >= step:
-            if sub.sonarRadius < mini:
-                mini = sub.sonarRadius
-            if sub.sonarRadius > maxi:
-                maxi = sub.sonarRadius
+        subPos = sub.getScreenPosition()
+        if subPos.x >= step:
+            if getattr(sub, attr) < mini:
+                mini = getattr(sub, attr)
+            if getattr(sub, attr) > maxi:
+                maxi = getattr(sub, attr)
 
     return mini, maxi
-    
-def sizeMinMax(terrain, step):
-    mini = 500
-    maxi = 0
 
-    for sub in terrain.tabSub:
-        temp = sub.getScreenPosition()
-        if temp[0] >= step:
-            if sub.size < mini:
-                mini = sub.size
-            if sub.size > maxi:
-                maxi = sub.size
-    
-    return mini, maxi
-
-def forceXMinMax(terrain, step):
-    mini = 500
-    maxi = 0
-
-    for sub in terrain.tabSub:
-        temp = sub.getScreenPosition()
-        if temp[0] >= step:
-            if sub.forceX < mini:
-                mini = sub.forceX
-            if sub.forceX > maxi:
-                maxi = sub.forceX
-    
-    return mini, maxi
-
-def forceYMinMax(terrain, step):
-    mini = 500
-    maxi = 0
-
-    for sub in terrain.tabSub:
-        temp = sub.getScreenPosition()
-        if temp[0] >= step:
-            if sub.forceY < mini:
-                mini = sub.forceY
-            if sub.forceY > maxi:
-                maxi = sub.forceY
-    
-    return mini, maxi
 
 def newGen(terrain):
-
     step = stepPos(terrain)
-    miniSonar, maxiSonar = sonarMinMax(terrain, step)
-    miniSize, maxiSize = sizeMinMax(terrain, step)
-    miniForceX, maxiForceX = forceXMinMax(terrain, step)
-    miniForceY, maxiForceY = forceYMinMax(terrain, step)
+    miniSonar, maxiSonar = getMinMax("sonarRadius", terrain, step)
+    miniSize, maxiSize = getMinMax("size", terrain, step)
+    miniForceX, maxiForceX = getMinMax("forceX", terrain, step)
+    miniForceY, maxiForceY = getMinMax("forceY", terrain, step)
     isAlive = True
     tab  = []
-
     
     for i in range(GEN_SIZE):
         sonar = random.randint(miniSonar, maxiSonar)
