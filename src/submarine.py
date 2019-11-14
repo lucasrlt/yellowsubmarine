@@ -3,6 +3,9 @@ import pymunk.pygame_util
 import math
 from .constants import *
 
+LEFT_PROPULSOR_ANGLE = -math.pi / 4
+BOTTOM_PROPULSOR_ANGLE = math.pi / 8
+
 class Propulsor:
     def __init__(self, position, force, angle = 0):
         self.position = pymunk.Vec2d(position)
@@ -11,7 +14,7 @@ class Propulsor:
 
 class Submarine:
     def __init__(self, physicsSpace, position,sonarSize,subSize,forceX,forceY, isAlive, color):
-        x, y = position
+        # Initialization of instance variables 
         self.size = subSize
         self.isAlive = isAlive
         self.physicsSpace = physicsSpace
@@ -19,17 +22,32 @@ class Submarine:
         self.lifetime = -1
         self.distance = -1
 
-
+        # Forces applied to left & right propulsors
         self.forceX = forceX
         self.forceY = forceY
 
-        self.leftPropulsor = Propulsor((0, 0), (forceX, 0), -math.pi / 4)
-        self.bottomPropulsor = Propulsor((int(self.size + self.size / 2), -self.size), (0, forceY), math.pi / 8)
+        # Propulsors powering the submarine
+        self.leftPropulsor = Propulsor((0, 0), (forceX, 0), LEFT_PROPULSOR_ANGLE)
+        self.bottomPropulsor = Propulsor((int(self.size + self.size / 2), -self.size), (0, forceY), BOTTOM_PROPULSOR_ANGLE)
 
+        # The sonar detects collisions around the submarine
         self.sonarRadius = sonarSize
         self.sonarOffset = (self.size + self.size / 2, 0)
 
-        self.setPosition((x, y))
+        self.initPosition(position)
+
+    def initPosition(self, position):
+        self.position = position
+        x, y = position 
+        size = self.size 
+        self.polygonVertices = [(x, y), # Left
+                                (x + size, y + size), # left bot
+                                (x + 2 * size, y + size), # right bot
+                                (x + 3 * size, y), # right
+                                (x + 2 * size, y - size), # right top
+                                (x + size, y - size)] # left top
+                                
+        self.setVertices(self.polygonVertices)
        
 
     def getScreenPosition(self):
@@ -63,18 +81,8 @@ class Submarine:
         self.physicsPolygon.collision_type = 4
 
         self.physicsPolygon.filter = pymunk.ShapeFilter(categories=1, mask=pymunk.ShapeFilter.ALL_MASKS ^ 1)
-        # self.physicsSpace.add(body, self.sonar, self.physicsPolygon)
         self.physicsSpace.add(body, self.physicsPolygon);
         self.physicsSpace.add(sonarBody, self.sonar);
-        # self.physicsSpace.add(self.sonarBody, self.sonar)
-        # self.physicsSpace.add(c)
-
-    def setPosition(self, position):
-        self.position = position
-        x, y = position 
-        size = self.size
-        self.polygonVertices = [(x, y), (x + size, y + size), (x + 2 * size, y + size), (x + 3 * size, y), (x + 2 * size, y - size), (x + size, y - size)]
-        self.setVertices(self.polygonVertices)
 
     def sonar_detect(self, direction):
         if direction == 'up':
