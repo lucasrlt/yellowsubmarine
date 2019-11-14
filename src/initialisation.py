@@ -1,10 +1,11 @@
 import random
-from .constants import WINDOW_SIZE
+from .constants import WINDOW_SIZE, GEN_SIZE
 from .submarine import Submarine
+
 
 def createSub(space):
     tab = []
-    for i in range(10):
+    for i in range(GEN_SIZE):
         isAlive = True
         sonar = random.randint(2,200)
         size = random.randint(10,20)

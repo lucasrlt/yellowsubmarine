@@ -2,7 +2,7 @@ import time
 import random
 from .submarine import Submarine
 from .terrain import Terrain
-from .constants import WINDOW_SIZE, CHANCE_MUT
+from .constants import WINDOW_SIZE, GEN_SIZE, CHANCE_MUT
 
 
 def elapsedTime(start):
@@ -116,7 +116,7 @@ def newGen(terrain):
     isAlive = True
     tab  = []
 
-    for i in range(10):
+    for i in range(GEN_SIZE):
         sonar = mut(2, maxiSonar*10, miniSonar, maxiSonar)
         size = mut(5, maxiSize*5, miniSize, maxiSize)
         forceX = mut(-100000, 100000, miniForceX, maxiForceX)

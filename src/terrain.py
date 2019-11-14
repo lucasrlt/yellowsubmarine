@@ -11,10 +11,13 @@ class Terrain:
     def hit_wall(space, arbiter, a, data):
         submarine_pos = arbiter.shapes[0].body.position
         sub = data["terrain"].find_real_submarine(submarine_pos)   
-        sub.isAlive = False 
+        if sub.isAlive:
+            sub.isAlive = False 
 
-        data["terrain"].space.remove(sub.physicsPolygon, sub.sonar, sub.sonar.body, sub.physicsPolygon.body)
-        data["terrain"].nbrSubCreated -= 1
+            data["terrain"].space.remove(sub.physicsPolygon, sub.sonar, sub.sonar.body, sub.physicsPolygon.body)
+            data["terrain"].nbrSubCreated -= 1
+
+            # print ("SUBMARINE DIED ", submarine_pos)
         return True
 
     def find_submarine(self, sonar_pos): 
