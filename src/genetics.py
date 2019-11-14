@@ -86,7 +86,3 @@ def newGen(terrain):
         tab.append(Submarine(terrain.space, (150, (int(WINDOW_SIZE[1] / 2))- 50),sonar,size,forceX,forceY,isAlive,(randR,randG,randB,255)))
     
     return tab
-
-
-      
-    
