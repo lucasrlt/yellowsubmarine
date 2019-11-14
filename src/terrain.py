@@ -15,6 +15,8 @@ class Terrain:
 
         data["terrain"].space.remove(sub.physicsPolygon, sub.sonar, sub.sonar.body, sub.physicsPolygon.body)
         data["terrain"].nbrSubCreated -= 1
+
+
         return True
 
     def find_submarine(self, sonar_pos): 
@@ -143,8 +145,8 @@ class Terrain:
         self.space.step(1.0/fps)
         self.clock.tick(fps)
 
-        if self.nbrSubCreated < 0:
-            self.nbrSubCreated = 0
+        # if self.nbrSubCreated < 0:
+            # self.nbrSubCreated = 0
         
         for sub in self.tabSub:
             sub.sonar.body.position = sub.getScreenPosition()
