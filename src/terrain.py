@@ -10,12 +10,17 @@ from .constants import DEBUG, WINDOW_SIZE
 class Terrain:
     def hit_wall(space, arbiter, a, data):
         submarine_pos = arbiter.shapes[0].body.position
-        sub = data["terrain"].find_real_submarine(submarine_pos)   
+        sub = data["terrain"].find_real_submarine(submarine_pos)
+        if sub.getScreenPosition().x > 1500:
+            sub.hasWin = True
+            data["terrain"].nbrWinner += 1   
         if sub.isAlive:
             sub.isAlive = False 
 
             data["terrain"].space.remove(sub.physicsPolygon, sub.sonar, sub.sonar.body, sub.physicsPolygon.body)
             data["terrain"].nbrSubCreated -= 1
+
+
 
             # print ("SUBMARINE DIED ", submarine_pos)
         return True
@@ -106,6 +111,11 @@ class Terrain:
         self.space.add(self.startingLines)
 
 
+        self.endingLine = pymunk.Segment(self.space.static_body,(1550,0),(1550,640),4)
+        self.endingLine.collision_type = 6
+        self.space.add(self.endingLine)
+
+
         if DEBUG: 
             print('## Top Lines : DONE ##')
             print('### Entering Block Creation Loop ####')
@@ -139,6 +149,9 @@ class Terrain:
         self.tabSub = createSub(self.space)
     
         self.nbrSubCreated = len(self.tabSub)
+        self.nbrWinner = 0
+
+
         #self.secondSub = Submarine(self.space, (150, int(WINDOW_SIZE[1] / 2)))
     
     # Mise à jour de l'image
@@ -146,8 +159,8 @@ class Terrain:
         self.space.step(1.0/fps)
         self.clock.tick(fps)
 
-        if self.nbrSubCreated < 0:
-            self.nbrSubCreated = 0
+        # if self.nbrSubCreated < 0:
+            # self.nbrSubCreated = 0
         
         for sub in self.tabSub:
             sub.sonar.body.position = sub.getScreenPosition()
