@@ -43,7 +43,11 @@ class Window:
             pygame.draw.line(self.screen,(255,0,0),self.terrain.verticesBottomList[i],self.terrain.verticesBottomList[i+1], 8)
         for i in range(len(self.terrain.verticesTopList)-1):
             pygame.draw.line(self.screen,(255,0,0),self.terrain.verticesTopList[i], self.terrain.verticesTopList[i+1], 8)
+        
+        #Starting Line (Avoid submaring to go backward infinitely)
         pygame.draw.line(self.screen,(255,0,0),(15,0),(15,640),8)
+        #Ending Line
+        pygame.draw.line(self.screen,(0,255,0),(1550,0),(1550,640),8)
 
         for i in range(len(self.terrain.verticesBoxList)):
             pygame.draw.rect(self.screen,(255,0,0),(self.terrain.verticesBoxList[i][0]-10,self.terrain.verticesBoxList[i][1]-10,20,20), 0)
