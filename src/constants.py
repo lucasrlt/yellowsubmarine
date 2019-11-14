@@ -1,2 +1,4 @@
 DEBUG = False
 WINDOW_SIZE = (1500, 640)
+
+GEN_SIZE = 100
