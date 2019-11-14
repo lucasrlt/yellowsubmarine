@@ -7,11 +7,10 @@ if __name__ == "__main__":
     win = Window()
     start = time.time()
     play = True
+    
     while(play):
         win.refresh()
-
-        time = elapsedTime(start) % win.terrain.geneTime
-
+        
         if win.terrain.nbrSubCreated == 0:
             win.terrain.gene += 1
             newTabSub = newGen(win.terrain)
