@@ -117,8 +117,8 @@ def newGen(terrain):
     tab  = []
 
     for i in range(GEN_SIZE):
-        sonar = mut(2, maxiSonar*10, miniSonar, maxiSonar)
-        size = mut(5, maxiSize*5, miniSize, maxiSize)
+        sonar = mut(2, 250, miniSonar, maxiSonar)
+        size = mut(5, 30, miniSize, maxiSize)
         forceX = mut(-100000, 100000, miniForceX, maxiForceX)
         forceY = mut(-50000, 50000, miniForceY, maxiForceY)
         
