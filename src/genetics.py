@@ -2,7 +2,7 @@ import time
 import random
 from .submarine import Submarine
 from .terrain import Terrain
-from .constants import WINDOW_SIZE, GEN_SIZE
+from .constants import WINDOW_SIZE, GEN_SIZE, CHANCE_MUT
 
 
 def elapsedTime(start):
@@ -35,82 +35,51 @@ def stepPos(terrain):
         elif maxi[0] < temp[0]:
             maxi[0] = temp[0]
     
-    stepPos = mini[0] + (maxi[0] - mini[0])*0.50
+    stepPos = mini[0] + (maxi[0] - mini[0])*0.25
     return stepPos
 
-def sonarMinMax(terrain, step):
-    mini = 500
+def getMinMax(attr, terrain, step):
+    mini = 1000
     maxi = 0
 
     for sub in terrain.tabSub:
-        temp = sub.getScreenPosition()
-        
-        if temp[0] >= step:
-            if sub.sonarRadius < mini:
-                mini = sub.sonarRadius
-            if sub.sonarRadius > maxi:
-                maxi = sub.sonarRadius
+        subPos = sub.getScreenPosition()
+        if subPos.x >= step:
+            if getattr(sub, attr) < mini:
+                mini = getattr(sub, attr)
+            if getattr(sub, attr) > maxi:
+                maxi = getattr(sub, attr)
 
     return mini, maxi
-    
-def sizeMinMax(terrain, step):
-    mini = 500
-    maxi = 0
 
-    for sub in terrain.tabSub:
-        temp = sub.getScreenPosition()
-        if temp[0] >= step:
-            if sub.size < mini:
-                mini = sub.size
-            if sub.size > maxi:
-                maxi = sub.size
-    
-    return mini, maxi
 
-def forceXMinMax(terrain, step):
-    mini = 500
-    maxi = 0
+def mut(mutMin, mutMax, min, max):
+ 
+    mut = random.randint(0, 100)
+    if mut % CHANCE_MUT:
 
-    for sub in terrain.tabSub:
-        temp = sub.getScreenPosition()
-        if temp[0] >= step:
-            if sub.forceX < mini:
-                mini = sub.forceX
-            if sub.forceX > maxi:
-                maxi = sub.forceX
-    
-    return mini, maxi
+        return random.randint(mutMin, mutMax)
 
-def forceYMinMax(terrain, step):
-    mini = 500
-    maxi = 0
+    else:
 
-    for sub in terrain.tabSub:
-        temp = sub.getScreenPosition()
-        if temp[0] >= step:
-            if sub.forceY < mini:
-                mini = sub.forceY
-            if sub.forceY > maxi:
-                maxi = sub.forceY
-    
-    return mini, maxi
+        return random.randint(min, max)
 
 def newGen(terrain):
-
     step = stepPos(terrain)
-    miniSonar, maxiSonar = sonarMinMax(terrain, step)
-    miniSize, maxiSize = sizeMinMax(terrain, step)
-    miniForceX, maxiForceX = forceXMinMax(terrain, step)
-    miniForceY, maxiForceY = forceYMinMax(terrain, step)
+    miniSonar, maxiSonar = getMinMax("sonarRadius", terrain, step)
+    miniSize, maxiSize = getMinMax("size", terrain, step)
+    miniForceX, maxiForceX = getMinMax("forceX", terrain, step)
+    miniForceY, maxiForceY = getMinMax("forceY", terrain, step)
     isAlive = True
     tab  = []
-
     
+
     for i in range(GEN_SIZE):
-        sonar = random.randint(miniSonar, maxiSonar)
-        size = random.randint(miniSize, maxiSize)
-        forceX = random.randint(miniForceX, maxiForceX)
-        forceY = random.randint(miniForceY, maxiForceY)
+        sonar = mut(2, maxiSonar*10, miniSonar, maxiSonar)
+        size = mut(5, maxiSize*5, miniSize, maxiSize)
+        forceX = mut(-100000, 100000, miniForceX, maxiForceX)
+        forceY = mut(-50000, 50000, miniForceY, maxiForceY)
+        
         randR = random.randint(0,255)
         randG = random.randint(0,255)
         randB = random.randint(0,255)
