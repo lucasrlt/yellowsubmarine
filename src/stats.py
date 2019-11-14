@@ -1,4 +1,4 @@
-from .constants import WINDOW_SIZE
+from .constants import WINDOW_SIZE, GEN_SIZE
 import pygame
 
 
@@ -8,8 +8,8 @@ class Stats:
     def __init__(self):
 
         #Position Text Sonar
-        self.posXSonarText = 130
-        self.posYSonarText = 540
+        self.posXNbrWin = 130
+        self.posYNbrWin = 540
         #position nbrSub Text
         self.nbrSubX = 130
         self.nbrSubY = 520
@@ -34,12 +34,13 @@ class Stats:
         self.nbrSubTextRect.topleft = (self.nbrSubX, self.nbrSubY)
         screen.blit(self.nbrSubText, self.nbrSubTextRect)
 
-        self.sonarText = self.font.render("Ray_Sonar = " + str(terrain.tabSub[0].sonarRadius), True, self.green)
-        self.sonarTextRect = self.sonarText.get_rect()
-        self.sonarTextRect.topleft = (self.posXSonarText, self.posYSonarText)
-        screen.blit(self.sonarText, self.sonarTextRect)
 
         self.nbrGenText = self.font.render("Gen Number = " + str(terrain.gene), True, self.green)
         self.nbrGenTextRect = self.nbrGenText.get_rect()
         self.nbrGenTextRect.topleft = (self.posXGenText,self.posYGenText)
         screen.blit(self.nbrGenText,self.nbrGenTextRect)
+
+        self.nbrWinText = self.font.render("Win Number = " + str(terrain.nbrWinner) + "/" + str(GEN_SIZE), True, self.green)
+        self.nbrWinTextRect = self.nbrWinText.get_rect()
+        self.nbrWinTextRect.topleft = (self.posXNbrWin, self.posYNbrWin)
+        screen.blit(self.nbrWinText, self.nbrWinTextRect)

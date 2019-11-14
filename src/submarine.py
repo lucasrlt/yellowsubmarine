@@ -23,6 +23,7 @@ class Submarine:
         # Initialization of instance variables
         self.size = subSize
         self.isAlive = isAlive
+        self.hasWin = False
         self.physicsSpace = physicsSpace
         self.color = color
         self.lifetime = -1
