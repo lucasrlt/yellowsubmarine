@@ -46,7 +46,6 @@ def sonarMinMax(terrain, step):
         temp = sub.getScreenPosition()
         
         if temp[0] >= step:
-            print(sub.sonarRadius)
             if sub.sonarRadius < mini:
                 mini = sub.sonarRadius
             if sub.sonarRadius > maxi:
@@ -105,7 +104,7 @@ def newGen(terrain):
     miniForceY, maxiForceY = forceYMinMax(terrain, step)
     isAlive = True
     tab  = []
-    print(miniSonar, maxiSonar)
+
     
     for i in range(10):
         sonar = random.randint(miniSonar, maxiSonar)

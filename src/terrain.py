@@ -41,7 +41,7 @@ class Terrain:
 
 
 
-    def __init__(self, tabInit):
+    def __init__(self):
         self.space = pymunk.Space()
         self.gene = 0
         self.geneTime = 30
@@ -132,11 +132,9 @@ class Terrain:
                 self.space.add(self.grid2)
 
         #self.submarine = Submarine(self.space, (150, (int(WINDOW_SIZE[1] / 2))- 50))
-        if tabInit ==[]:
-            self.tabSub = createSub(self.space)
-        else:
-            self.tabSub = tabInit
-        
+       
+        self.tabSub = createSub(self.space)
+    
         self.nbrSubCreated = len(self.tabSub)
         #self.secondSub = Submarine(self.space, (150, int(WINDOW_SIZE[1] / 2)))
     
