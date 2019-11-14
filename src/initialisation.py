@@ -8,8 +8,8 @@ def createSub(space):
         isAlive = True
         sonar = random.randint(2,200)
         size = random.randint(10,20)
-        forceX = random.randint(25000,100000)
-        forceY = random.randint(-50000,0)
+        forceX = random.randint(-100000,100000)
+        forceY = random.randint(-50000,50000)
         randR = random.randint(0,255)
         randG = random.randint(0,255)
         randB = random.randint(0,255)
