@@ -2,7 +2,7 @@ import time
 import random
 from .submarine import Submarine
 from .terrain import Terrain
-from .constants import WINDOW_SIZE, GEN_SIZE
+from .constants import WINDOW_SIZE, GEN_SIZE, CHANCE_MUT
 
 
 def elapsedTime(start):
@@ -35,7 +35,7 @@ def stepPos(terrain):
         elif maxi[0] < temp[0]:
             maxi[0] = temp[0]
     
-    stepPos = mini[0] + (maxi[0] - mini[0])*0.50
+    stepPos = mini[0] + (maxi[0] - mini[0])*0.25
     return stepPos
 
 def getMinMax(attr, terrain, step):
@@ -53,6 +53,17 @@ def getMinMax(attr, terrain, step):
     return mini, maxi
 
 
+def mut(mutMin, mutMax, min, max):
+ 
+    mut = random.randint(0, 100)
+    if mut % CHANCE_MUT:
+
+        return random.randint(mutMin, mutMax)
+
+    else:
+
+        return random.randint(min, max)
+
 def newGen(terrain):
     step = stepPos(terrain)
     miniSonar, maxiSonar = getMinMax("sonarRadius", terrain, step)
@@ -62,11 +73,13 @@ def newGen(terrain):
     isAlive = True
     tab  = []
     
+
     for i in range(GEN_SIZE):
-        sonar = random.randint(miniSonar, maxiSonar)
-        size = random.randint(miniSize, maxiSize)
-        forceX = random.randint(miniForceX, maxiForceX)
-        forceY = random.randint(miniForceY, maxiForceY)
+        sonar = mut(2, maxiSonar*10, miniSonar, maxiSonar)
+        size = mut(5, maxiSize*5, miniSize, maxiSize)
+        forceX = mut(-100000, 100000, miniForceX, maxiForceX)
+        forceY = mut(-50000, 50000, miniForceY, maxiForceY)
+        
         randR = random.randint(0,255)
         randG = random.randint(0,255)
         randB = random.randint(0,255)
