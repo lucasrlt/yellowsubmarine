@@ -9,9 +9,15 @@ if __name__ == "__main__":
     play = True
     while(play):
         win.refresh()
-        if(( win.terrain.nbrSubCreated == 0) or (elapsedTime(start) % (win.terrain.geneTime * (win.terrain.gene + 1)))  > win.terrain.geneTime):
-            win.terrain = Terrain(newGen(win.terrain))
-            win.terrain.gene += 1
         
+        time = elapsedTime(start) % win.terrain.geneTime
+
+        if win.terrain.nbrSubCreated == 0:
+            win.terrain.gene += 1
+            newTabSub = newGen(win.terrain)
+            win.terrain.tabSub = newTabSub
+            win.terrain.nbrSubCreated = len(newTabSub)
+            
+            
         play = win.close()
         continue

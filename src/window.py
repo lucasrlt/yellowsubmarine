@@ -12,8 +12,7 @@ class Window:
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode(WINDOW_SIZE)
-        tabInit = []
-        self.terrain = Terrain(tabInit)
+        self.terrain = Terrain()
         self.stats = Stats()
         self.draw_options = pymunk.pygame_util.DrawOptions(self.screen)
         pymunk.pygame_util.positive_y_is_up = False
