@@ -1,5 +1,7 @@
 from .constants import WINDOW_SIZE, GEN_SIZE
+from .genetics import *
 import pygame
+
 
 
 # 1000 640
@@ -16,6 +18,9 @@ class Stats:
         #Position nbr Gen text
         self.posXGenText = 130
         self.posYGenText = 500
+        #Position Time
+        self.posXTime = 130
+        self.posYTime = 560
 
 
         self.green = (0,255,0) #Couleur du texte
@@ -43,4 +48,9 @@ class Stats:
         self.nbrWinText = self.font.render("Win Number = " + str(terrain.nbrWinner) + "/" + str(GEN_SIZE), True, self.green)
         self.nbrWinTextRect = self.nbrWinText.get_rect()
         self.nbrWinTextRect.topleft = (self.posXNbrWin, self.posYNbrWin)
+        screen.blit(self.nbrWinText, self.nbrWinTextRect)
+
+        self.nbrWinText = self.font.render("Time = " + str(int(elapsedTime(terrain.start))), True, self.green)
+        self.nbrWinTextRect = self.nbrWinText.get_rect()
+        self.nbrWinTextRect.topleft = (self.posXTime, self.posYTime)
         screen.blit(self.nbrWinText, self.nbrWinTextRect)

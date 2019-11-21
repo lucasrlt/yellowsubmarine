@@ -51,8 +51,9 @@ class Terrain:
 
     def __init__(self):
         self.space = pymunk.Space()
-        self.gene = 0
-        self.geneTime = 30
+        self.gene = 1
+        self.geneTime = 20
+        self.start = time.time()
         
         h = self.space.add_collision_handler(4, 6)
         h.data["terrain"] = self

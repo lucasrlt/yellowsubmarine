@@ -16,8 +16,6 @@ if __name__ == "__main__":
     while(play):
         win.refresh()
 
-        time = elapsedTime(start) % win.terrain.geneTime
-
         if win.terrain.nbrSubCreated == 0:
             win.terrain.gene += 1
 

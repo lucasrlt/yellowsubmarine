@@ -35,7 +35,7 @@ def stepPos(terrain):
         elif maxi[0] < temp[0]:
             maxi[0] = temp[0]
     
-    stepPos = mini[0] + (maxi[0] - mini[0])*0.85
+    stepPos = mini[0] + (maxi[0] - mini[0])*0.80
     return stepPos
 
 def getMinMax(attr, terrain, step):
@@ -55,7 +55,7 @@ def getMinMax(attr, terrain, step):
 
 def mut(mutMin, mutMax, min, max):
  
-    mut = random.randint(0, 100)
+    mut = random.randint(0, 10000)
     if mut % CHANCE_MUT:
 
         return random.randint(mutMin, mutMax)
