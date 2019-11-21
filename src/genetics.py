@@ -55,8 +55,8 @@ def getMinMax(attr, terrain, step):
 
 def mut(mutMin, mutMax, min, max):
  
-    mut = random.randint(0, 10000)
-    if mut % CHANCE_MUT:
+    mut = random.randint(0, 100) 
+    if mut < CHANCE_MUT:
 
         return random.randint(mutMin, mutMax)
 
@@ -77,7 +77,7 @@ def newGen(terrain):
     for i in range(GEN_SIZE):
         sonar = mut(2, 250, miniSonar, maxiSonar)
         size = mut(5, 30, miniSize, maxiSize)
-        forceX = mut(-100000, 100000, miniForceX, maxiForceX)
+        forceX = mut(-10000, 10000, miniForceX, maxiForceX)
         forceY = mut(-50000, 50000, miniForceY, maxiForceY)
         
         randR = random.randint(0,255)
