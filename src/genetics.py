@@ -77,8 +77,8 @@ def newGen(terrain):
     for i in range(GEN_SIZE):
         sonar = mut(2, 250, miniSonar, maxiSonar)
         size = mut(5, 30, miniSize, maxiSize)
-        forceX = mut(-10000, 10000, miniForceX, maxiForceX)
-        forceY = mut(-50000, 50000, miniForceY, maxiForceY)
+        forceX = mut(-5000, 5000, miniForceX, maxiForceX)
+        forceY = mut(-25000, 25000, miniForceY, maxiForceY)
         
         randR = random.randint(0,255)
         randG = random.randint(0,255)
