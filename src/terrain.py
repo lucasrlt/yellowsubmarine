@@ -4,7 +4,7 @@ import pymunk.pygame_util
 import time
 from .initialisation import *
 from .submarine import Submarine
-from .constants import DEBUG, WINDOW_SIZE
+from .constants import DEBUG, WINDOW_SIZE, NO_WINDOW
 # 1000 640
 
 class Terrain:
@@ -67,7 +67,8 @@ class Terrain:
         self.space.gravity = 0, 10
         pymunk.pygame_util.positive_y_is_up = False
 
-        self.clock = pygame.time.Clock()    
+        if not NO_WINDOW:
+            self.clock = pygame.time.Clock()    
         
         # Tableaux de points pour les lignes / cubes sur le terrain
         self.verticesBottomList = [(0,600),(100,550),(110,540),(150,400),
@@ -157,8 +158,9 @@ class Terrain:
     
     # Mise à jour de l'image
     def update(self, fps):
-        self.space.step(1.0/fps)
-        self.clock.tick(fps)
+        self.space.step(fps)
+        if not NO_WINDOW:
+            self.clock.tick(fps)
 
         # if self.nbrSubCreated < 0:
             # self.nbrSubCreated = 0

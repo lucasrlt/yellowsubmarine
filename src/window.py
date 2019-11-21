@@ -66,9 +66,10 @@ class Window:
     
     
     def refresh(self):
+        print("UPDATE");
         pygame.display.flip()
         self.screen.fill((0, 0, 0))
-        self.terrain.update(120)
+        self.terrain.update(1.0 / 120)
         if DEBUG:
             self.terrain.space.debug_draw(self.draw_options)
         else:
