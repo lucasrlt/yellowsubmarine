@@ -160,7 +160,7 @@ class Terrain:
     def update(self, fps):
         self.space.step(fps)
         if not NO_WINDOW:
-            self.clock.tick(fps)
+            self.clock.tick(1.0 / fps)
 
         # if self.nbrSubCreated < 0:
             # self.nbrSubCreated = 0
