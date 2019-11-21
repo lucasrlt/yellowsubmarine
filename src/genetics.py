@@ -35,7 +35,7 @@ def stepPos(terrain):
         elif maxi[0] < temp[0]:
             maxi[0] = temp[0]
     
-    stepPos = mini[0] + (maxi[0] - mini[0])*0.25
+    stepPos = mini[0] + (maxi[0] - mini[0])*0.85
     return stepPos
 
 def getMinMax(attr, terrain, step):

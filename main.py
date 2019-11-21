@@ -1,12 +1,18 @@
 from src.constants import WINDOW_SIZE
 from src.window import *
+from src.console import *
 from src.genetics import *
 import time
 
 if __name__ == "__main__":
-    win = Window()
+    win = Console() if NO_WINDOW else Window()
     start = time.time()
     play = True
+
+    if NO_WINDOW:
+        print("DEBUT DE LA SIMULATION")
+        print("BATCH SIZE: ", GEN_SIZE)
+
     while(play):
         win.refresh()
 
@@ -14,10 +20,15 @@ if __name__ == "__main__":
 
         if win.terrain.nbrSubCreated == 0:
             win.terrain.gene += 1
+
+            if NO_WINDOW:
+                win.print_gen_info()
+
             newTabSub = newGen(win.terrain)
             win.terrain.tabSub = newTabSub
             win.terrain.nbrWinner = 0
             win.terrain.nbrSubCreated = len(newTabSub)
 
-        play = win.close()
+        if not NO_WINDOW:
+            play = win.close()
         continue
