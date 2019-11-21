@@ -20,22 +20,22 @@ def stepLifeTime(terrain):
         elif maxi < sub.lifetime:
             maxi = sub.lifetime
     
-    stepLifeTime = mini + (maxi - mini)*0.80
+    stepLifeTime = mini + (maxi - mini)*0.95
     return stepLifeTime
 
 def stepPos(terrain):
 
-    mini = terrain.tabSub[0].getScreenPosition()
-    maxi = terrain.tabSub[0].getScreenPosition()
+    mini = 20000
+    maxi = -20000
 
     for sub in terrain.tabSub:
         temp = sub.getScreenPosition()
-        if mini[0] < temp[0]:
-            mini[0] = temp[0]
-        elif maxi[0] > temp[0]:
-            maxi[0] = temp[0]
+        if mini < temp[0]:
+            mini = temp[0]
+        elif maxi > temp[0]:
+            maxi = temp[0]
     
-    stepPos = mini[0] + (maxi[0] - mini[0])*0.80
+    stepPos = mini + (maxi - mini)*0.95
     return stepPos
 
 def getMinMax(attr, terrain, step):
@@ -56,7 +56,7 @@ def getMinMax(attr, terrain, step):
 def mut(min, max):
  
     mut = random.randint(0, 100)
-    rangMut = 0.2
+    rangMut = 0.20
     if mut < CHANCE_MUT:
 
         return random.randint(min - int(min*rangMut), max + int(max*rangMut))
