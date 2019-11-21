@@ -30,9 +30,9 @@ def stepPos(terrain):
 
     for sub in terrain.tabSub:
         temp = sub.getScreenPosition()
-        if mini[0] > temp[0]:
+        if mini[0] < temp[0]:
             mini[0] = temp[0]
-        elif maxi[0] < temp[0]:
+        elif maxi[0] > temp[0]:
             maxi[0] = temp[0]
     
     stepPos = mini[0] + (maxi[0] - mini[0])*0.80
@@ -53,12 +53,13 @@ def getMinMax(attr, terrain, step):
     return mini, maxi
 
 
-def mut(mutMin, mutMax, min, max):
+def mut(min, max):
  
-    mut = random.randint(0, 100) 
+    mut = random.randint(0, 100)
+    rangMut = 0.2
     if mut < CHANCE_MUT:
 
-        return random.randint(mutMin, mutMax)
+        return random.randint(min - int(min*rangMut), max + int(max*rangMut))
 
     else:
 
@@ -75,10 +76,10 @@ def newGen(terrain):
     
 
     for i in range(GEN_SIZE):
-        sonar = mut(2, 250, miniSonar, maxiSonar)
-        size = mut(5, 30, miniSize, maxiSize)
-        forceX = mut(-5000, 5000, miniForceX, maxiForceX)
-        forceY = mut(-25000, 25000, miniForceY, maxiForceY)
+        sonar = mut(miniSonar, maxiSonar)
+        size = mut(miniSize, maxiSize)
+        forceX = mut(miniForceX, maxiForceX)
+        forceY = mut(miniForceY, maxiForceY)
         
         randR = random.randint(0,255)
         randG = random.randint(0,255)
