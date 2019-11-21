@@ -1,4 +1,4 @@
-from src.constants import WINDOW_SIZE
+from src.constants import WINDOW_SIZE, NO_WINDOW
 from src.window import *
 from src.console import *
 from src.genetics import *
