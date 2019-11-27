@@ -1,8 +1,9 @@
 import time
 import random
+import bisect
 from .submarine import Submarine
 from .terrain import Terrain
-from .constants import WINDOW_SIZE, GEN_SIZE, CHANCE_MUT
+from .constants import WINDOW_SIZE, GEN_SIZE, CHANCE_MUT, EXP
 
 
 def elapsedTime(start):
@@ -79,17 +80,31 @@ def newGen(terrain):
 
     tempTab = terrain.tabSub
     tempTab = sortTab(tempTab)
+    distrib = [x.distance for x in tempTab]
+    dMin = distrib[0]
+    dMax = distrib[-1]
+    distrib = [pow((x-dMin)/(dMin - dMax), EXP) for x in distrib]
+    
+    for i in range(1, GEN_SIZE-1):
+        distrib[i] = distrib[i] + distrib[i-1]
+
+
     isAlive = True
     distance = -1
     tab  = []
-    j = GEN_SIZE-1
-    while j >= GEN_SIZE/2 -1:
+#    j = GEN_SIZE-1
+
+    for j in range(int(GEN_SIZE/2)):
+        val0 = random.uniform(0, distrib[-1])
+        i0 = bisect.bisect_right(distrib, val0) - 1
+        val1 = random.uniform(0, distrib[-1])
+        i1 = bisect.bisect_right(distrib, val1) - 1
+        
         randR = random.randint(0,255)
         randG = random.randint(0,255)
         randB = random.randint(0,255)        
-        tab.append(Submarine(terrain.space, (150, (int(WINDOW_SIZE[1] / 2))- 50),tempTab[j].sonarRadius,tempTab[j-1].size,tempTab[j].forceX,tempTab[j-1].forceY,isAlive,(randR,randG,randB,255), distance))
-        tab.append(Submarine(terrain.space, (150, (int(WINDOW_SIZE[1] / 2))- 50),tempTab[j-1].sonarRadius,tempTab[j].size,tempTab[j-1].forceX,tempTab[j].forceY,isAlive,(randR,randG,randB,255), distance))
-        j-=2
+        tab.append(Submarine(terrain.space, (150, (int(WINDOW_SIZE[1] / 2))- 50),tempTab[i0].sonarRadius,tempTab[i1].size,tempTab[i0].forceX,tempTab[i1].forceY,isAlive,(randR,randG,randB,255), distance))
+        tab.append(Submarine(terrain.space, (150, (int(WINDOW_SIZE[1] / 2))- 50),tempTab[i1].sonarRadius,tempTab[i0].size,tempTab[i1].forceX,tempTab[i0].forceY,isAlive,(randR,randG,randB,255), distance))
 
 
     step = stepPos(terrain)
