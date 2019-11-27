@@ -28,10 +28,6 @@ class Stats:
         self.font = pygame.font.Font('freesansbold.ttf', 20)
 
 
-
-
-        
-        
     def draw(self,screen, terrain):
 
         self.nbrSubText = self.font.render("Sub_Number = " + str(terrain.nbrSubCreated), True, self.green)
