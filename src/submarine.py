@@ -19,7 +19,7 @@ class Propulsor:
 
 
 class Submarine:
-    def __init__(self, physicsSpace, position, sonarSize, subSize, forceX, forceY, isAlive, color):
+    def __init__(self, physicsSpace, position, sonarSize, subSize, forceX, forceY, isAlive, color, distance):
         # Initialization of instance variables
         self.size = subSize
         self.isAlive = isAlive
@@ -27,7 +27,7 @@ class Submarine:
         self.physicsSpace = physicsSpace
         self.color = color
         self.lifetime = -1
-        self.distance = -1
+        self.distance = distance
 
         # Forces applied to left & right propulsors
         self.forceX = forceX

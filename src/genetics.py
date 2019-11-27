@@ -56,7 +56,7 @@ def getMinMax(attr, terrain, step):
 def mut(min, max):
  
     mut = random.randint(0, 100)
-    rangMut = 0.20
+    rangMut = 0.15
     if mut < CHANCE_MUT:
 
         return random.randint(min - int(min*rangMut), max + int(max*rangMut))
@@ -65,17 +65,40 @@ def mut(min, max):
 
         return random.randint(min, max)
 
+def sortTab(tabSub):
+    for i in range(1, GEN_SIZE):
+        temp = tabSub[i]
+        j = i
+        while j > 0 and temp.distance < tabSub[j-1].distance:
+            tabSub[j]=tabSub[j-1]
+            j-=1
+        tabSub[j]=temp
+    return tabSub
+
 def newGen(terrain):
+
+    tempTab = terrain.tabSub
+    tempTab = sortTab(tempTab)
+    isAlive = True
+    distance = -1
+    tab  = []
+    j = GEN_SIZE-1
+    while j >= GEN_SIZE/2 -1:
+        randR = random.randint(0,255)
+        randG = random.randint(0,255)
+        randB = random.randint(0,255)        
+        tab.append(Submarine(terrain.space, (150, (int(WINDOW_SIZE[1] / 2))- 50),tempTab[j].sonarRadius,tempTab[j-1].size,tempTab[j].forceX,tempTab[j-1].forceY,isAlive,(randR,randG,randB,255), distance))
+        tab.append(Submarine(terrain.space, (150, (int(WINDOW_SIZE[1] / 2))- 50),tempTab[j-1].sonarRadius,tempTab[j].size,tempTab[j-1].forceX,tempTab[j].forceY,isAlive,(randR,randG,randB,255), distance))
+        j-=2
+
+
     step = stepPos(terrain)
     miniSonar, maxiSonar = getMinMax("sonarRadius", terrain, step)
     miniSize, maxiSize = getMinMax("size", terrain, step)
     miniForceX, maxiForceX = getMinMax("forceX", terrain, step)
     miniForceY, maxiForceY = getMinMax("forceY", terrain, step)
-    isAlive = True
-    tab  = []
-    
 
-    for i in range(GEN_SIZE):
+    for i in range(int(GEN_SIZE/2)):
         sonar = mut(miniSonar, maxiSonar)
         size = mut(miniSize, maxiSize)
         forceX = mut(miniForceX, maxiForceX)
@@ -84,6 +107,6 @@ def newGen(terrain):
         randR = random.randint(0,255)
         randG = random.randint(0,255)
         randB = random.randint(0,255)
-        tab.append(Submarine(terrain.space, (150, (int(WINDOW_SIZE[1] / 2))- 50),sonar,size,forceX,forceY,isAlive,(randR,randG,randB,255)))
+        tab.append(Submarine(terrain.space, (150, (int(WINDOW_SIZE[1] / 2))- 50),sonar,size,forceX,forceY,isAlive,(randR,randG,randB,255), distance))
     
     return tab

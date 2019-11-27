@@ -15,12 +15,11 @@ class Terrain:
             sub.hasWin = True
             data["terrain"].nbrWinner += 1   
         if sub.isAlive:
-            sub.isAlive = False 
-
+            sub.isAlive = False
             data["terrain"].space.remove(sub.physicsPolygon, sub.sonar, sub.sonar.body, sub.physicsPolygon.body)
             data["terrain"].nbrSubCreated -= 1
-
-
+        if sub.distance == -1:
+            sub.distance = sub.getScreenPosition()[0]
 
             # print ("SUBMARINE DIED ", submarine_pos)
         return True
