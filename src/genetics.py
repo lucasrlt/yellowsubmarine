@@ -96,28 +96,21 @@ def newGen(terrain):
 
     for j in range(int(GEN_SIZE/2)):
         val0 = random.uniform(0, distrib[-1])
-        i0 = bisect.bisect_right(distrib, val0) - 1
+        i0 = bisect.bisect_right(distrib, val0)
         val1 = random.uniform(0, distrib[-1])
-        i1 = bisect.bisect_right(distrib, val1) - 1
+        i1 = bisect.bisect_right(distrib, val1)
         
         randR = random.randint(0,255)
         randG = random.randint(0,255)
         randB = random.randint(0,255)        
         tab.append(Submarine(terrain.space, (150, (int(WINDOW_SIZE[1] / 2))- 50),tempTab[i0].sonarRadius,tempTab[i1].size,tempTab[i0].forceX,tempTab[i1].forceY,isAlive,(randR,randG,randB,255), distance))
-        tab.append(Submarine(terrain.space, (150, (int(WINDOW_SIZE[1] / 2))- 50),tempTab[i1].sonarRadius,tempTab[i0].size,tempTab[i1].forceX,tempTab[i0].forceY,isAlive,(randR,randG,randB,255), distance))
-
-
-    step = stepPos(terrain)
-    miniSonar, maxiSonar = getMinMax("sonarRadius", terrain, step)
-    miniSize, maxiSize = getMinMax("size", terrain, step)
-    miniForceX, maxiForceX = getMinMax("forceX", terrain, step)
-    miniForceY, maxiForceY = getMinMax("forceY", terrain, step)
+    print(i0, "et", i1)
 
     for i in range(int(GEN_SIZE/2)):
-        sonar = mut(miniSonar, maxiSonar)
-        size = mut(miniSize, maxiSize)
-        forceX = mut(miniForceX, maxiForceX)
-        forceY = mut(miniForceY, maxiForceY)
+        sonar = mut(2, 200)
+        size = mut(10, 20)
+        forceX = mut(-100000, 100000)
+        forceY = mut(-50000, 50000)
         
         randR = random.randint(0,255)
         randG = random.randint(0,255)
