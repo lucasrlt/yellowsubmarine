@@ -1,4 +1,4 @@
-from src.constants import WINDOW_SIZE, NO_WINDOW
+from src.constants import WINDOW_SIZE, NO_WINDOW, GEN_TIME
 from src.window import *
 from src.console import *
 from src.genetics import *
@@ -16,8 +16,22 @@ if __name__ == "__main__":
     while(play):
         win.refresh()
 
+        if time.time() - start >= (GEN_TIME if NO_WINDOW else GEN_TIME * 4):
+            print("----Gen Time Out----")
+            for sub in win.terrain.tabSub:
+                if sub.isAlive:
+                    sub.isAlive = False
+                    win.terrain.space.remove(
+                        sub.physicsPolygon, sub.sonar, sub.sonar.body, sub.physicsPolygon.body)
+                    win.terrain.nbrSubCreated -= 1
+                if sub.distance == -1:
+                    sub.distance = sub.getScreenPosition()[0]
+
         if win.terrain.nbrSubCreated == 0:
+
+            start = time.time()
             win.terrain.gene += 1
+            win.stats.writeLastGen(win.terrain)
 
             if NO_WINDOW:
                 win.print_gen_info()

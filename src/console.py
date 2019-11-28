@@ -1,9 +1,11 @@
 from .terrain import *
+from .stats import Stats
 
 
 class Console:
     def __init__(self):
         self.terrain = Terrain()
+        self.stats = Stats()
 
     def refresh(self):
         self.terrain.update(0.01)
@@ -22,3 +24,4 @@ class Console:
         print("GENERATION N° ", self.terrain.gene)
         print("Nbr gagnants: ", self.terrain.nbrWinner)
         print("Distance maximale: ", self.get_max_pos(), "%")
+        self.stats.writeLastGen(self.terrain)
