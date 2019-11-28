@@ -16,7 +16,8 @@ if __name__ == "__main__":
     while(play):
         win.refresh()
 
-        if win.terrain.nbrSubCreated == 0:
+        if win.terrain.nbrSubCreated == 0 or time.time() - start >= 10:
+            start = time.time()
             win.terrain.gene += 1
 
             if NO_WINDOW:
