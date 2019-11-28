@@ -1,4 +1,4 @@
-from src.constants import WINDOW_SIZE, NO_WINDOW
+from src.constants import WINDOW_SIZE, NO_WINDOW, GEN_TIME
 from src.window import *
 from src.console import *
 from src.genetics import *
@@ -16,7 +16,8 @@ if __name__ == "__main__":
     while(play):
         win.refresh()
 
-        if time.time() - start >= 10:
+        if time.time() - start >= (GEN_TIME if NO_WINDOW else GEN_TIME * 4):
+            print("----Gen Time Out----")
             for sub in win.terrain.tabSub:
                 if sub.isAlive:
                     sub.isAlive = False
