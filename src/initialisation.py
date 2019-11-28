@@ -6,7 +6,6 @@ import sys
 
 def createSub(space):
     tab = []
-<<<<<<< HEAD
     if len(sys.argv) != 1:
         dataFile = open("data/lastGen.txt", "r")
         for j in range(7):
@@ -47,23 +46,6 @@ def createSub(space):
             randB = random.randint(0, 255)        
             tab.append(Submarine(space, (150, (int(WINDOW_SIZE[1] / 2)) - 50), sonar, size, forceX, forceY, isAlive, (randR, randG, randB, 255), -1))
 
-=======
-    for i in range(GEN_SIZE):
-        isAlive = True
-        # sonar = 104
-        # size = 17
-        # forceX = -65451
-        # forceY = -35537
-        sonar = random.randint(2, 200)
-        size = random.randint(10, 20)
-        forceX = random.randint(-100000, 100000)
-        forceY = random.randint(-50000, 50000)
-        randR = random.randint(0, 255)
-        randG = random.randint(0, 255)
-        randB = random.randint(0, 255)
-        tab.append(Submarine(space, (150, (int(
-            WINDOW_SIZE[1] / 2)) - 50), sonar, size, forceX, forceY, isAlive, (randR, randG, randB, 255), -1))
->>>>>>> 2f594a95c9526a166048346d879c75f2f21ad850
     return tab
 
 
