@@ -84,6 +84,8 @@ def newGen(terrain):
   
     dMin = distrib[0]
     dMax = distrib[-1]
+
+    print("Meilleur sous marin: [" + str(tempTab[-1].sonarRadius) + ", " + str(tempTab[-1].size) + ", " + str(tempTab[-1].forceX) + ", " + str(tempTab[-1].forceY) + "]")
     distrib = [pow((x-dMin)/(dMax - dMin), EXP) for x in distrib]
     
     for i in range(1, GEN_SIZE-1):
@@ -105,7 +107,6 @@ def newGen(terrain):
         randG = random.randint(0,255)
         randB = random.randint(0,255)        
         tab.append(Submarine(terrain.space, (150, (int(WINDOW_SIZE[1] / 2))- 50),tempTab[i0].sonarRadius,tempTab[i1].size,tempTab[i0].forceX,tempTab[i1].forceY,isAlive,(randR,randG,randB,255), distance))
-    print(i0, "et", i1)
 
     while len(tab) < GEN_SIZE:
         sonar = mut(2, 200)
