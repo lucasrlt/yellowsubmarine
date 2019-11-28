@@ -1,4 +1,4 @@
-from src.constants import WINDOW_SIZE, NO_WINDOW, GEN_TIME
+from src.constants import WINDOW_SIZE, NO_WINDOW, GEN_TIME, SAVE_STATS
 from src.window import *
 from src.console import *
 from src.genetics import *
@@ -35,7 +35,8 @@ if __name__ == "__main__":
 
             start = time.time()
             win.terrain.gene += 1
-            win.stats.writeLastGen(win.terrain)
+            if SAVE_STATS:
+                win.stats.writeLastGen(win.terrain)
 
             if NO_WINDOW:
                 win.print_gen_info()
