@@ -3,7 +3,7 @@ import random
 import bisect
 from .submarine import Submarine
 from .terrain import Terrain
-from .constants import WINDOW_SIZE, GEN_SIZE, CHANCE_MUT, EXP
+from .constants import WINDOW_SIZE, GEN_SIZE, CHANCE_MUT, EXP, PROPORTION
 
 
 def elapsedTime(start):
@@ -81,9 +81,12 @@ def newGen(terrain):
     tempTab = terrain.tabSub
     tempTab = sortTab(tempTab)
     distrib = [x.distance for x in tempTab]
+  
     dMin = distrib[0]
     dMax = distrib[-1]
-    distrib = [pow((x-dMin)/(dMin - dMax), EXP) for x in distrib]
+
+    print("Meilleur sous marin: [" + str(tempTab[-1].sonarRadius) + ", " + str(tempTab[-1].size) + ", " + str(tempTab[-1].forceX) + ", " + str(tempTab[-1].forceY) + "]")
+    distrib = [pow((x-dMin)/(dMax - dMin), EXP) for x in distrib]
     
     for i in range(1, GEN_SIZE-1):
         distrib[i] = distrib[i] + distrib[i-1]
@@ -94,7 +97,7 @@ def newGen(terrain):
     tab  = []
 #    j = GEN_SIZE-1
 
-    for j in range(int(GEN_SIZE/2)):
+    for j in range(int(GEN_SIZE * PROPORTION)):
         val0 = random.uniform(0, distrib[-1])
         i0 = bisect.bisect_right(distrib, val0)
         val1 = random.uniform(0, distrib[-1])
@@ -104,9 +107,8 @@ def newGen(terrain):
         randG = random.randint(0,255)
         randB = random.randint(0,255)        
         tab.append(Submarine(terrain.space, (150, (int(WINDOW_SIZE[1] / 2))- 50),tempTab[i0].sonarRadius,tempTab[i1].size,tempTab[i0].forceX,tempTab[i1].forceY,isAlive,(randR,randG,randB,255), distance))
-    print(i0, "et", i1)
 
-    for i in range(int(GEN_SIZE/2)):
+    while len(tab) < GEN_SIZE:
         sonar = mut(2, 200)
         size = mut(10, 20)
         forceX = mut(-100000, 100000)

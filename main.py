@@ -16,7 +16,19 @@ if __name__ == "__main__":
     while(play):
         win.refresh()
 
+        if time.time() - start >= 10:
+            for sub in win.terrain.tabSub:
+                if sub.isAlive:
+                    sub.isAlive = False
+                    win.terrain.space.remove(
+                        sub.physicsPolygon, sub.sonar, sub.sonar.body, sub.physicsPolygon.body)
+                    win.terrain.nbrSubCreated -= 1
+                if sub.distance == -1:
+                    sub.distance = sub.getScreenPosition()[0]
+
         if win.terrain.nbrSubCreated == 0:
+
+            start = time.time()
             win.terrain.gene += 1
             win.stats.writeLastGen(win.terrain)
 
