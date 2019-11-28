@@ -18,6 +18,7 @@ if __name__ == "__main__":
 
         if win.terrain.nbrSubCreated == 0:
             win.terrain.gene += 1
+            win.stats.writeLastGen(win.terrain)
 
             if NO_WINDOW:
                 win.print_gen_info()
