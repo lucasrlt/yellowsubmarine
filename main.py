@@ -1,13 +1,17 @@
-from src.constants import WINDOW_SIZE, NO_WINDOW, GEN_TIME
+from src.constants import WINDOW_SIZE, NO_WINDOW, GEN_TIME, SAVE_STATS
 from src.window import *
 from src.console import *
 from src.genetics import *
 import time
+import sys
 
 if __name__ == "__main__":
     win = Console() if NO_WINDOW else Window()
     start = time.time()
     play = True
+    if len(sys.argv) != 1:
+        filePath = sys.argv[1]
+        print("IMPORTATION DU FICHIER : ", str(filePath))
 
     if NO_WINDOW:
         print("DEBUT DE LA SIMULATION")
@@ -31,7 +35,8 @@ if __name__ == "__main__":
 
             start = time.time()
             win.terrain.gene += 1
-            win.stats.writeLastGen(win.terrain)
+            if SAVE_STATS:
+                win.stats.writeLastGen(win.terrain)
 
             if NO_WINDOW:
                 win.print_gen_info()
