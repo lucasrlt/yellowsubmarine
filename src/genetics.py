@@ -3,7 +3,7 @@ import random
 import bisect
 from .submarine import Submarine
 from .terrain import Terrain
-from .constants import WINDOW_SIZE, GEN_SIZE, CHANCE_MUT, EXP, PROPORTION
+from .constants import WINDOW_SIZE, GEN_SIZE, CHANCE_MUT, EXP, PROPORTION, NB_CHILD
 
 
 def elapsedTime(start):
@@ -97,16 +97,24 @@ def newGen(terrain):
     tab  = []
 #    j = GEN_SIZE-1
 
-    for j in range(int(GEN_SIZE * PROPORTION)):
+    while len(tab) < (int(GEN_SIZE * PROPORTION)):
+        
         val0 = random.uniform(0, distrib[-1])
         i0 = bisect.bisect_right(distrib, val0)
         val1 = random.uniform(0, distrib[-1])
         i1 = bisect.bisect_right(distrib, val1)
-        
-        randR = random.randint(0,255)
-        randG = random.randint(0,255)
-        randB = random.randint(0,255)        
-        tab.append(Submarine(terrain.space, (150, (int(WINDOW_SIZE[1] / 2))- 50),tempTab[i0].sonarRadius,tempTab[i1].size,tempTab[i0].forceX,tempTab[i1].forceY,isAlive,(randR,randG,randB,255), distance))
+        for e in range(NB_CHILD):
+
+            randR = random.randint(0,255)
+            randG = random.randint(0,255)
+            randB = random.randint(0,255)        
+            
+            sonar = tempTab[i0].sonarRadius if random.randint(0,1) else tempTab[i1].sonarRadius
+            size = tempTab[i0].size if random.randint(0,1) else tempTab[i1].size
+            forceX = tempTab[i0].forceX if random.randint(0,1) else tempTab[i1].forceX
+            forceY = tempTab[i0].forceY if random.randint(0,1) else tempTab[i1].forceY
+
+            tab.append(Submarine(terrain.space, (150, (int(WINDOW_SIZE[1] / 2))- 50),sonar,size,forceX,forceY,isAlive,(randR,randG,randB,255), distance))
 
     while len(tab) < GEN_SIZE:
         sonar = mut(2, 200)
