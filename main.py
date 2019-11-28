@@ -3,11 +3,15 @@ from src.window import *
 from src.console import *
 from src.genetics import *
 import time
+import sys
 
 if __name__ == "__main__":
     win = Console() if NO_WINDOW else Window()
     start = time.time()
     play = True
+    if len(sys.argv) != 1:
+        filePath = sys.argv[1]
+        print("IMPORTATION DU FICHIER : ", str(filePath))
 
     if NO_WINDOW:
         print("DEBUT DE LA SIMULATION")

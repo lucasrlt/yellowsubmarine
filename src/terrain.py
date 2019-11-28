@@ -147,6 +147,7 @@ class Terrain:
 
         #self.submarine = Submarine(self.space, (150, (int(WINDOW_SIZE[1] / 2))- 50))
        
+
         self.tabSub = createSub(self.space)
     
         self.nbrSubCreated = len(self.tabSub)
