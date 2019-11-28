@@ -16,7 +16,7 @@ if __name__ == "__main__":
     while(play):
         win.refresh()
 
-        if time.time() - start >= 1:
+        if time.time() - start >= 10:
             for sub in win.terrain.tabSub:
                 if sub.isAlive:
                     sub.isAlive = False
