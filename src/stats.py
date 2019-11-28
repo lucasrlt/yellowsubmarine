@@ -1,4 +1,4 @@
-from .constants import WINDOW_SIZE, GEN_SIZE
+from .constants import WINDOW_SIZE, GEN_SIZE, NO_WINDOW
 from .genetics import *
 import pygame
 
@@ -7,31 +7,42 @@ import pygame
 # 1000 640
 
 class Stats:
+
+    def writeLastGen(self, terrain):
+        self.dataFile = open("data/lastGen.txt", "w+")
+        self.dataFile.write("Stats Last Gen : \n")
+        self.dataFile.write("-Sonar \n-Size \n-ForceX \n-ForceY \n")
+        for i in range(GEN_SIZE):
+            self.dataFile.write("\n" + str(terrain.tabSub[i].sonarRadius))
+            self.dataFile.write("\n" + str(terrain.tabSub[i].size))
+            self.dataFile.write("\n" + str(terrain.tabSub[i].forceX))
+            self.dataFile.write("\n" + str(terrain.tabSub[i].forceY) + "\n")
+            
+        self.dataFile.close()
+
+
     def __init__(self):
 
-        #Position Text Sonar
-        self.posXNbrWin = 130
-        self.posYNbrWin = 540
-        #position nbrSub Text
-        self.nbrSubX = 130
-        self.nbrSubY = 520
-        #Position nbr Gen text
-        self.posXGenText = 130
-        self.posYGenText = 500
-        #Position Time
-        self.posXTime = 130
-        self.posYTime = 560
+        if not(NO_WINDOW):
+            #Position Text Sonar
+            self.posXNbrWin = 130
+            self.posYNbrWin = 540
+            #position nbrSub Text
+            self.nbrSubX = 130
+            self.nbrSubY = 520
+            #Position nbr Gen text
+            self.posXGenText = 130
+            self.posYGenText = 500
+            #Position Time
+            self.posXTime = 130
+            self.posYTime = 560
 
 
-        self.green = (0,255,0) #Couleur du texte
+            self.green = (0,255,0) #Couleur du texte
 
-        self.font = pygame.font.Font('freesansbold.ttf', 20)
-
-
+            self.font = pygame.font.Font('freesansbold.ttf', 20)
 
 
-        
-        
     def draw(self,screen, terrain):
 
         self.nbrSubText = self.font.render("Sub_Number = " + str(terrain.nbrSubCreated), True, self.green)

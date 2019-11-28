@@ -31,6 +31,7 @@ if __name__ == "__main__":
 
             start = time.time()
             win.terrain.gene += 1
+            win.stats.writeLastGen(win.terrain)
 
             if NO_WINDOW:
                 win.print_gen_info()
