@@ -4,7 +4,9 @@ NO_WINDOW = False
 CHANCE_MUT = 5
 GEN_SIZE = 20
 EXP = 5
-PROPORTION = 0.8
+PROPORTION = 0.75
 GEN_TIME = 10
-NB_CHILD = 4
+COEFF = 5
+NB_CHILD = (GEN_SIZE*PROPORTION)/COEFF if ((GEN_SIZE*PROPORTION) /
+                                           COEFF) % 2 == 0 else int((GEN_SIZE*PROPORTION)/COEFF) + 1
 SAVE_STATS = True

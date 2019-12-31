@@ -124,16 +124,15 @@ def newGen(terrain):
             randG = random.randint(0, 255)
             randB = random.randint(0, 255)
 
-            sonar = tempTab[i0].sonarRadius if random.randint(
-                0, 1) else tempTab[i1].sonarRadius
-            size = tempTab[i0].size if random.randint(
-                0, 1) else tempTab[i1].size
-            forceX = tempTab[i0].forceX if random.randint(
-                0, 1) else tempTab[i1].forceX
-            forceY = tempTab[i0].forceY if random.randint(
-                0, 1) else tempTab[i1].forceY
-            sonarOffset = tempTab[i0].sonarOffset[0] if random.randint(
-                0, 1) else tempTab[i1].sonarOffset[0]
+            sonarSize = random.randint(0, 1)
+            forceXY = random.randint(0, 1)
+            sonarOffset = random.randint(0, 1)
+
+            sonar = tempTab[i0].sonarRadius if sonarSize else tempTab[i1].sonarRadius
+            size = tempTab[i0].size if sonarSize else tempTab[i1].size
+            forceX = tempTab[i0].forceX if forceXY else tempTab[i1].forceX
+            forceY = tempTab[i0].forceY if forceXY else tempTab[i1].forceY
+            sonarOffset = tempTab[i0].sonarOffset[0] if sonarOffset else tempTab[i1].sonarOffset[0]
 
             tab.append(Submarine(terrain.space, (150, (int(
                 WINDOW_SIZE[1] / 2)) - 50), sonar, size, forceX, forceY, isAlive, (randR, randG, randB, 255), distance, sonarOffset))
