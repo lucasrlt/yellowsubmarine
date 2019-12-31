@@ -17,54 +17,69 @@ class Window:
         self.draw_options = pymunk.pygame_util.DrawOptions(self.screen)
         pymunk.pygame_util.positive_y_is_up = False
 
-
     def draw_arrow(self, screen, colour, start, end):
-        pygame.draw.line(screen,colour,start,end,4)
-        rotation = math.degrees(math.atan2(start[1]-end[1], end[0]-start[0]))+90
-        pygame.draw.polygon(screen, (255, 0, 0), ((end[0]+10*math.sin(math.radians(rotation)), end[1]+10*math.cos(math.radians(rotation))), (end[0]+10*math.sin(math.radians(rotation-120)), end[1]+10*math.cos(math.radians(rotation-120))), (end[0]+10*math.sin(math.radians(rotation+120)), end[1]+10*math.cos(math.radians(rotation+120)))))
+        pygame.draw.line(screen, colour, start, end, 4)
+        rotation = math.degrees(math.atan2(
+            start[1]-end[1], end[0]-start[0]))+90
+        pygame.draw.polygon(screen, (255, 0, 0), ((end[0]+10*math.sin(math.radians(rotation)), end[1]+10*math.cos(math.radians(rotation))), (end[0]+10*math.sin(math.radians(
+            rotation-120)), end[1]+10*math.cos(math.radians(rotation-120))), (end[0]+10*math.sin(math.radians(rotation+120)), end[1]+10*math.cos(math.radians(rotation+120)))))
 
     def drawForces(self):
         for sub in self.terrain.tabSub:
             propulsor = sub.leftPropulsor
             fLen = 20
-            x = sub.getScreenPosition().x - sub.size - (propulsor.position[0] + math.cos(propulsor.force.angle) * fLen)
-            y = sub.getScreenPosition().y - sub.size + (propulsor.position[1] + math.sin(propulsor.force.angle) * fLen)
+            x = sub.getScreenPosition().x - sub.size - \
+                (propulsor.position[0] +
+                 math.cos(propulsor.force.angle) * fLen)
+            y = sub.getScreenPosition().y - sub.size + \
+                (propulsor.position[1] +
+                 math.sin(propulsor.force.angle) * fLen)
 
             propulsor2 = sub.bottomPropulsor
-            x2 = sub.getScreenPosition().x - sub.size - (propulsor.position[0] + math.cos(propulsor2.force.angle) * fLen)
-            y2 = sub.getScreenPosition().y + sub.size + (propulsor.position[1] + math.sin(propulsor2.force.angle) * fLen)
+            x2 = sub.getScreenPosition().x - sub.size - \
+                (propulsor.position[0] +
+                 math.cos(propulsor2.force.angle) * fLen)
+            y2 = sub.getScreenPosition().y + sub.size + \
+                (propulsor.position[1] +
+                 math.sin(propulsor2.force.angle) * fLen)
 
-
-            self.draw_arrow(self.screen, (255, 0, 0), (x,y),  (sub.getScreenPosition().x - sub.size, sub.getScreenPosition().y - sub.size))
-            self.draw_arrow(self.screen, (255, 0, 0), (x2,y2),  (sub.getScreenPosition().x, sub.getScreenPosition().y + sub.size))
+            self.draw_arrow(self.screen, (255, 0, 0), (x, y),  (sub.getScreenPosition(
+            ).x - sub.size, sub.getScreenPosition().y - sub.size))
+            self.draw_arrow(self.screen, (255, 0, 0), (x2, y2),  (sub.getScreenPosition(
+            ).x, sub.getScreenPosition().y + sub.size))
 
     def drawLinesBoxes(self):
         for i in range(len(self.terrain.verticesBottomList)-1):
-            pygame.draw.line(self.screen,(255,0,0),self.terrain.verticesBottomList[i],self.terrain.verticesBottomList[i+1], 8)
+            pygame.draw.line(self.screen, (255, 0, 0),
+                             self.terrain.verticesBottomList[i], self.terrain.verticesBottomList[i+1], 8)
         for i in range(len(self.terrain.verticesTopList)-1):
-            pygame.draw.line(self.screen,(255,0,0),self.terrain.verticesTopList[i], self.terrain.verticesTopList[i+1], 8)
-        
-        #Starting Line (Avoid submaring to go backward infinitely)
-        pygame.draw.line(self.screen,(255,0,0),(15,0),(15,640),8)
-        #Ending Line
-        pygame.draw.line(self.screen,(0,255,0),(1550,0),(1550,640),8)
+            pygame.draw.line(self.screen, (255, 0, 0),
+                             self.terrain.verticesTopList[i], self.terrain.verticesTopList[i+1], 8)
+
+        # Starting Line (Avoid submaring to go backward infinitely)
+        pygame.draw.line(self.screen, (255, 0, 0), (15, 0), (15, 640), 8)
+        # Ending Line
+        pygame.draw.line(self.screen, (0, 255, 0), (1475, 0), (1475, 640), 8)
 
         for i in range(len(self.terrain.verticesBoxList)):
-            pygame.draw.rect(self.screen,(255,0,0),(self.terrain.verticesBoxList[i][0]-10,self.terrain.verticesBoxList[i][1]-10,20,20), 0)
+            pygame.draw.rect(self.screen, (255, 0, 0), (
+                self.terrain.verticesBoxList[i][0]-10, self.terrain.verticesBoxList[i][1]-10, 20, 20), 0)
 
     def drawSubmarines(self):
         verts = []
         for sub in self.terrain.tabSub:
             for v in sub.physicsPolygon.get_vertices():
-                x = v.rotated(sub.physicsPolygon.body.angle)[0] + sub.physicsPolygon.body.position[0]
-                y = v.rotated(sub.physicsPolygon.body.angle)[1] + sub.physicsPolygon.body.position[1]
-                verts.append((x,y))
+                x = v.rotated(sub.physicsPolygon.body.angle)[
+                    0] + sub.physicsPolygon.body.position[0]
+                y = v.rotated(sub.physicsPolygon.body.angle)[
+                    1] + sub.physicsPolygon.body.position[1]
+                verts.append((x, y))
             if sub.isAlive:
-                pygame.draw.polygon(self.screen,sub.color,verts,0)
-                pygame.draw.circle(self.screen, sub.color, (int(sub.getScreenPosition()[0] + sub.sonarOffset[0]), int(sub.getScreenPosition()[1] + sub.sonarOffset[1])),sub.sonarRadius, 1)
+                pygame.draw.polygon(self.screen, sub.color, verts, 0)
+                pygame.draw.circle(self.screen, sub.color, (int(sub.getScreenPosition()[
+                                   0] + sub.sonarOffset[0]), int(sub.getScreenPosition()[1] + sub.sonarOffset[1])), sub.sonarRadius, 1)
             verts = []
-    
-    
+
     def refresh(self):
         pygame.display.flip()
         self.screen.fill((0, 0, 0))
@@ -75,9 +90,9 @@ class Window:
             self.drawLinesBoxes()
             self.drawSubmarines()
 
-        self.stats.draw(self.screen,self.terrain)
+        self.stats.draw(self.screen, self.terrain)
 
-        #self.drawForces()
+        # self.drawForces()
 
 #    def draw1(self):
         #self.terrain.submarine.sonar.color = pygame.color.THECOLORS["pink"]

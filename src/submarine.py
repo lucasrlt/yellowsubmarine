@@ -19,7 +19,7 @@ class Propulsor:
 
 
 class Submarine:
-    def __init__(self, physicsSpace, position, sonarSize, subSize, forceX, forceY, isAlive, color, distance):
+    def __init__(self, physicsSpace, position, sonarSize, subSize, forceX, forceY, isAlive, color, distance, sonarOffset):
         # Initialization of instance variables
         self.size = subSize
         self.isAlive = isAlive
@@ -41,7 +41,8 @@ class Submarine:
 
         # The sonar detects collisions around the submarine
         self.sonarRadius = sonarSize
-        self.sonarOffset = (self.size + self.size / 2, 0)
+        self.sonarOffset = (sonarOffset, 0)
+        # (self.size + self.size / 2, 0)
 
         self.initPolygon(position)
         self.initSonar()
@@ -103,7 +104,7 @@ class Submarine:
     """
 
     def getScreenPosition(self):
-        poly_center = tuple(map(sum, zip(self.position, self.sonarOffset)))
+        poly_center = tuple(map(sum, zip(self.position, (self.size / 2, 0))))
         poly_center = (int(poly_center[0]), int(poly_center[1]))
         return self.physicsPolygon.body.local_to_world(poly_center)
 
