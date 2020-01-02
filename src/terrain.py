@@ -151,7 +151,7 @@ class Terrain:
         #self.submarine = Submarine(self.space, (150, (int(WINDOW_SIZE[1] / 2))- 50))
        
 
-        self.tabSub = createSub(self.space)
+        self.tabSub = []
     
         self.nbrSubCreated = len(self.tabSub)
         self.nbrWinner = 0
@@ -170,4 +170,9 @@ class Terrain:
         
         for sub in self.tabSub:
             sub.sonar.body.position = sub.getScreenPosition()
+            if sub.isAlive and sub.getScreenPosition().x > 1440:
+                sub.isAlive = False
+                sub.distance = sub.getScreenPosition()[0]
+                self.space.remove(sub.physicsPolygon, sub.sonar, sub.sonar.body, sub.physicsPolygon.body)
+                self.nbrSubCreated -= 1
 

@@ -3,9 +3,3 @@ Stats Last Gen :
 -Size 
 -ForceX 
 -ForceY 
-
-163
-12
-52881
--13003
--6
