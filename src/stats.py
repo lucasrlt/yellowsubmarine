@@ -3,10 +3,11 @@ from .genetics import *
 import pygame
 
 
-# 1000 640
-
+## Classe de statistiques
+## Gère l'affichage des stats à l'écran + Sauvegarde dernière génération
 class Stats:
 
+    ## Enregistre les valeurs de la dernière génération dans data/lastGen.txt
     def writeLastGen(self, terrain):
         self.dataFile = open("data/lastGen.txt", "w+")
         self.dataFile.write("Stats Last Gen : \n")
@@ -23,6 +24,8 @@ class Stats:
 
     def __init__(self):
 
+    ## Initialisation des positions des textes + Couleurs
+        
         if not(NO_WINDOW):
             # Position Text Sonar
             self.posXNbrWin = 130
@@ -37,10 +40,11 @@ class Stats:
             self.posXTime = 130
             self.posYTime = 560
 
-            self.green = (0, 255, 0)  # Couleur du texte
+            self.green = (0, 255, 0) 
 
             self.font = pygame.font.Font('freesansbold.ttf', 20)
 
+    ## Affichage à l'écran des textes de statistiques
     def draw(self, screen, terrain):
 
         self.nbrSubText = self.font.render(
