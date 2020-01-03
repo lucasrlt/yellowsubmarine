@@ -5,9 +5,11 @@ import time
 from .initialisation import *
 from .submarine import Submarine
 from .constants import DEBUG, WINDOW_SIZE, NO_WINDOW
-# 1000 640
+
 
 class Terrain:
+
+    ## Fonction de gestion des collisions
     def hit_wall(space, arbiter, a, data):
         submarine_pos = arbiter.shapes[0].body.position
         subs = data["terrain"].find_real_submarines(submarine_pos)
@@ -37,6 +39,7 @@ class Terrain:
                 subs.append(sub)
         return subs
 
+    ## Fonction de detection de colisions entre le sonar et un objet
     def trigger_sonar(space, arbiter, n, data):
         sonar_pos = arbiter.shapes[0].body.position
         obj_pos = arbiter.contact_point_set.points[0].point_a
@@ -76,17 +79,13 @@ class Terrain:
         self.verticesBottomList = [(0,600),(100,550),(110,540),(150,400),
         (200,460),(225,480),(250,430),(400,620),(500,550),(550,485),
         (550,500),(600,500),(800,450),(875,600),(950,450),(1000,500),(1150,450),(1200,500),(1300,550),(1350,600),(1400,530),(1450,500),(1550,400),
-        (1600,375),(1700,375),(1750,350),(1800,400),(1850,500),(1900,550),(2000,550)]
-        #30
+        (1600,375),(1700,375),(1750,350),(1800,400),(1850,500),(1900,550),(2000,550)] #30
         self.verticesTopList = [(0,100),(150,150),(200,125),(225,75),(275,50),(350,100),
         (450,150),(550,175),(650,200),(750,200),(850,150),(900,100),(950,175),(1000,175),
         (1100,300),(1200,130),(1300,130),(1350,120),(1500,200),(1600,250),(1650,200),(1700,100),(1750,125),(1800,200),
-        (1850,200),(1900,50),(1950,100),(2000,150)]
-        #28
+        (1850,200),(1900,50),(1950,100),(2000,150)] #28
+        self.verticesBoxList = [(300,200),(400,325),(600,250),(800,375),(1300,250)] #5
         
-        
-
-        self.verticesBoxList = [(300,200),(400,325),(600,250),(800,375),(1300,250)]
         self.nbrSubCreated = 0
 
         if DEBUG:
@@ -136,7 +135,7 @@ class Terrain:
 
         
 
-        # Affichage d'une grille en DEBUG pour une lecture plus facile des coordonnées (1 ligne tout les 100 pixels)
+        ## Affichage d'une grille en DEBUG pour une lecture plus facile des coordonnées (1 ligne tout les 100 pixels)
         if DEBUG:
             for i in range(20):
                 self.grid = pymunk.Segment(self.space.static_body, (i*100 ,0), (i*100, 640), 2)
@@ -159,7 +158,7 @@ class Terrain:
 
         #self.secondSub = Submarine(self.space, (150, int(WINDOW_SIZE[1] / 2)))
     
-    # Mise à jour de l'image
+    ## Mise à jour de l'image
     def update(self, fps):
         self.space.step(fps)
         if not NO_WINDOW:
