@@ -1,3 +1,4 @@
+## Fichier de constantes, modifie toutes les variables dans l'algorithme
 DEBUG = False
 WINDOW_SIZE = (1500, 640)
 NO_WINDOW = False
