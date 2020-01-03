@@ -12,7 +12,6 @@ def createSub(space):
             line = dataFile.readline()
             print(line)
         for i in range(GEN_SIZE):
-            print("Boucle GEN_SIZE : ", GEN_SIZE)
             isAlive = True
             sonar = int(line)
             line = dataFile.readline()
@@ -23,12 +22,10 @@ def createSub(space):
             forceY = int(line)
             line = dataFile.readline()
             line = dataFile.readline()
-            print("La ligne est : ", line)
             randR = random.randint(0, 255)
             randG = random.randint(0, 255)
             randB = random.randint(0, 255)        
             tab.append(Submarine(space, (150, (int(WINDOW_SIZE[1] / 2)) - 50), sonar, size, forceX, forceY, isAlive, (randR, randG, randB, 255), -1))
-            print(len(tab))
             
 
         dataFile.close()
