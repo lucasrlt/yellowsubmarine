@@ -10,16 +10,17 @@ from .constants import DEBUG, WINDOW_SIZE, NO_WINDOW
 class Terrain:
     def hit_wall(space, arbiter, a, data):
         submarine_pos = arbiter.shapes[0].body.position
-        sub = data["terrain"].find_real_submarine(submarine_pos)
-        if sub.getScreenPosition().x > 1500:
-            sub.hasWin = True
-            data["terrain"].nbrWinner += 1   
-        if sub.isAlive:
-            sub.isAlive = False
-            data["terrain"].space.remove(sub.physicsPolygon, sub.sonar, sub.sonar.body, sub.physicsPolygon.body)
-            data["terrain"].nbrSubCreated -= 1
-        if sub.distance == -1:
-            sub.distance = sub.getScreenPosition()[0]
+        subs = data["terrain"].find_real_submarines(submarine_pos)
+        for sub in subs:
+            if sub.getScreenPosition().x > 1440:
+                sub.hasWin = True
+                data["terrain"].nbrWinner += 1   
+            if sub.isAlive:
+                sub.isAlive = False
+                data["terrain"].space.remove(sub.physicsPolygon, sub.sonar, sub.sonar.body, sub.physicsPolygon.body)
+                data["terrain"].nbrSubCreated -= 1
+            if sub.distance == -1:
+                sub.distance = sub.getScreenPosition()[0]
 
             # print ("SUBMARINE DIED ", submarine_pos)
         return True
@@ -29,10 +30,12 @@ class Terrain:
             if sub.sonar.body.position == sonar_pos:
                 return sub
     
-    def find_real_submarine(self, pos): 
+    def find_real_submarines(self, pos): 
+        subs = []
         for sub in self.tabSub:
             if sub.physicsPolygon.body.position == pos:
-                return sub
+                subs.append(sub)
+        return subs
 
     def trigger_sonar(space, arbiter, n, data):
         sonar_pos = arbiter.shapes[0].body.position
@@ -72,7 +75,7 @@ class Terrain:
         # Tableaux de points pour les lignes / cubes sur le terrain
         self.verticesBottomList = [(0,600),(100,550),(110,540),(150,400),
         (200,460),(225,480),(250,430),(400,620),(500,550),(550,485),
-        (550,500),(600,500),(800,450),(875,600),(950,450),(1000,500),(1150,450),(1200,375),(1300,550),(1350,600),(1400,530),(1450,500),(1550,400),
+        (550,500),(600,500),(800,450),(875,600),(950,450),(1000,500),(1150,450),(1200,500),(1300,550),(1350,600),(1400,530),(1450,500),(1550,400),
         (1600,375),(1700,375),(1750,350),(1800,400),(1850,500),(1900,550),(2000,550)]
         #30
         self.verticesTopList = [(0,100),(150,150),(200,125),(225,75),(275,50),(350,100),
@@ -112,7 +115,7 @@ class Terrain:
         self.space.add(self.startingLines)
 
 
-        self.endingLine = pymunk.Segment(self.space.static_body,(1550,0),(1550,640),4)
+        self.endingLine = pymunk.Segment(self.space.static_body,(1475,0),(1475,640),4)
         self.endingLine.collision_type = 6
         self.space.add(self.endingLine)
 
@@ -148,7 +151,7 @@ class Terrain:
         #self.submarine = Submarine(self.space, (150, (int(WINDOW_SIZE[1] / 2))- 50))
        
 
-        self.tabSub = createSub(self.space)
+        self.tabSub = []
     
         self.nbrSubCreated = len(self.tabSub)
         self.nbrWinner = 0
@@ -167,4 +170,9 @@ class Terrain:
         
         for sub in self.tabSub:
             sub.sonar.body.position = sub.getScreenPosition()
+            if sub.isAlive and sub.getScreenPosition().x > 1440:
+                sub.isAlive = False
+                sub.distance = sub.getScreenPosition()[0]
+                self.space.remove(sub.physicsPolygon, sub.sonar, sub.sonar.body, sub.physicsPolygon.body)
+                self.nbrSubCreated -= 1
 

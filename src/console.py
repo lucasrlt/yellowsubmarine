@@ -9,15 +9,15 @@ class Console:
         self.stats = Stats()
 
     def refresh(self):
-        self.terrain.update(0.01)
+        self.terrain.update(1.0 / 120.0)
 
     def get_max_pos(self):
         posXmax = 0
         for sub in self.terrain.tabSub:
             if sub.getScreenPosition()[0] > posXmax:
                 posXmax = sub.getScreenPosition()[0]
-            
-        posXmax = (posXmax*100)/1500
+
+        posXmax = (posXmax*100)/1440
 
         return round(posXmax, 2)
 
