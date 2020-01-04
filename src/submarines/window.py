@@ -6,16 +6,18 @@ import random
 import math
 from .terrain import Terrain
 from .stats import Stats
+import time
 
 
 class Window:
-    def __init__(self):
+    def __init__(self, show_trained=False):
         pygame.init()
         self.screen = pygame.display.set_mode(WINDOW_SIZE)
-        self.terrain = Terrain()
+        self.terrain = Terrain(True, show_trained)
         self.stats = Stats()
         self.draw_options = pymunk.pygame_util.DrawOptions(self.screen)
         pymunk.pygame_util.positive_y_is_up = False
+        self.start = time.time()
 
     def draw_arrow(self, screen, colour, start, end):
         pygame.draw.line(screen, colour, start, end, 4)
@@ -90,7 +92,7 @@ class Window:
             self.drawLinesBoxes()
             self.drawSubmarines()
 
-        self.stats.draw(self.screen, self.terrain)
+        self.stats.draw(self.screen, self.terrain, time.time() - self.start)
 
         # self.drawForces()
 

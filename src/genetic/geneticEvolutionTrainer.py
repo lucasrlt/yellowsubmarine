@@ -1,4 +1,3 @@
-from .constants import FEATURE_COUNT
 import random
 from statistics import mean
 import copy
@@ -12,8 +11,15 @@ class GeneticEvolutionTrainer():
     population_size = 100
     parents = int(population_size * selection_rate)
     population = None
-    boundaries = [(2, 200), (10, 20),
-                  (-100000, 100000), (-50000, 50000), (-20, 20)]
+    boundaries = None
+    feature_count = 0
+
+    def __init__(self, boundaries, population_size=100, selection_rate=0.1, mutation_rate=0.01):
+        self.boundaries = boundaries
+        self.population_size = population_size
+        self.selection_rate = selection_rate
+        self.mutation_rate = mutation_rate
+        self.feature_count = len(boundaries)
 
     def new_generation(self, scores=None):
         if self.population is None:
@@ -40,6 +46,8 @@ class GeneticEvolutionTrainer():
         new_population = self.mutation(base_offsprings)
         self.population = new_population
         self.generation += 1
+
+        print("Taille: " + str(len(self.population)))
         return self.population
 
     def pair(self, parents):
@@ -58,7 +66,7 @@ class GeneticEvolutionTrainer():
         offsprings = []
         for offspring in base_offsprings:
             offspring_mutation = copy.deepcopy(offspring)
-            for i in range(0, FEATURE_COUNT):
+            for i in range(0, self.feature_count):
                 if np.random.choice([True, False], p=[self.mutation_rate, 1-self.mutation_rate]):
                     offspring_mutation[i] = random.randint(
                         self.boundaries[i][0], self.boundaries[i][1])
@@ -68,7 +76,7 @@ class GeneticEvolutionTrainer():
     def crossover(self, x, y):
         offspring_x = x
         offspring_y = y
-        for i in range(0, FEATURE_COUNT):
+        for i in range(0, self.feature_count):
             if random.choice([True, False]):
                 offspring_x[i] = y[i]
                 offspring_y[i] = x[i]
@@ -94,7 +102,7 @@ class GeneticEvolutionTrainer():
         chromosomes = []
         for i in range(0, self.population_size):
             chromosome = []
-            for j in range(0, FEATURE_COUNT):
+            for j in range(0, self.feature_count):
                 chromosome.append(random.randint(
                     self.boundaries[j][0], self.boundaries[j][1]))
             chromosomes.append(chromosome)

@@ -4,7 +4,7 @@ import pymunk.pygame_util
 import time
 from .initialisation import *
 from .submarine import Submarine
-from .constants import DEBUG, WINDOW_SIZE, NO_WINDOW
+from .constants import DEBUG, WINDOW_SIZE
 
 
 class Terrain:
@@ -54,11 +54,12 @@ class Terrain:
 
 
 
-    def __init__(self):
+    def __init__(self, with_window = True, show_trained = False):
         self.space = pymunk.Space()
         self.gene = 1
         self.geneTime = 20
         self.start = time.time()
+        self.with_window = with_window
         
         h = self.space.add_collision_handler(4, 6)
         h.data["terrain"] = self
@@ -72,7 +73,7 @@ class Terrain:
         self.space.gravity = 0, 10
         pymunk.pygame_util.positive_y_is_up = False
 
-        if not NO_WINDOW:
+        if self.with_window:
             self.clock = pygame.time.Clock()    
         
         # Tableaux de points pour les lignes / cubes sur le terrain
@@ -145,27 +146,20 @@ class Terrain:
             for i in range(10):
                 self.grid2 = pymunk.Segment(self.space.static_body, (0,i*100), (2000,i*100),2)
                 self.grid2.filter = pymunk.ShapeFilter(categories = 1, mask=pymunk.ShapeFilter.ALL_MASKS ^ 1)
-                self.space.add(self.grid2)
-
-        #self.submarine = Submarine(self.space, (150, (int(WINDOW_SIZE[1] / 2))- 50))
-       
+                self.space.add(self.grid2)       
 
         self.tabSub = []
+        if (show_trained):
+            self.tabSub.append(Submarine(self.space, (150, (int(WINDOW_SIZE[1] / 2)) -50), 70, 10, 34147, -30532, True, (128, 128, 128), 0, 23))
     
         self.nbrSubCreated = len(self.tabSub)
         self.nbrWinner = 0
-
-
-        #self.secondSub = Submarine(self.space, (150, int(WINDOW_SIZE[1] / 2)))
     
     ## Mise à jour de l'image
     def update(self, fps):
         self.space.step(fps)
-        if not NO_WINDOW:
+        if self.with_window:
             self.clock.tick(1.0 / fps)
-
-        # if self.nbrSubCreated < 0:
-            # self.nbrSubCreated = 0
         
         for sub in self.tabSub:
             sub.sonar.body.position = sub.getScreenPosition()

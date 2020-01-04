@@ -1,9 +1,9 @@
 import time
 import random
 import bisect
-from .submarine import Submarine
-from .terrain import Terrain
-from .constants import WINDOW_SIZE, GEN_SIZE, CHANCE_MUT, EXP, PROPORTION, NB_CHILD
+from submarine import Submarine
+from terrain import Terrain
+from constants import WINDOW_SIZE, GEN_SIZE, CHANCE_MUT, EXP, PROPORTION, NB_CHILD
 
 
 def elapsedTime(start):

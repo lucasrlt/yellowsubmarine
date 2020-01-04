@@ -1,18 +1,17 @@
 from .constants import WINDOW_SIZE, GEN_SIZE, NO_WINDOW
-from .genetics import *
 import pygame
 
 
-## Classe de statistiques
-## Gère l'affichage des stats à l'écran + Sauvegarde dernière génération
+# Classe de statistiques
+# Gère l'affichage des stats à l'écran + Sauvegarde dernière génération
 class Stats:
 
-    ## Enregistre les valeurs de la dernière génération dans data/lastGen.txt
+    # Enregistre les valeurs de la dernière génération dans data/lastGen.txt
     def writeLastGen(self, terrain):
         self.dataFile = open("data/lastGen.txt", "w+")
         self.dataFile.write("Stats Last Gen : \n")
         self.dataFile.write("-Sonar \n-Size \n-ForceX \n-ForceY \n")
-        for i in range(GEN_SIZE):
+        for i in range(len(terrain.tabSub)):
             self.dataFile.write("\n" + str(terrain.tabSub[i].sonarRadius))
             self.dataFile.write("\n" + str(terrain.tabSub[i].size))
             self.dataFile.write("\n" + str(terrain.tabSub[i].forceX))
@@ -22,11 +21,10 @@ class Stats:
 
         self.dataFile.close()
 
-    def __init__(self):
+    def __init__(self, with_window=True):
 
-    ## Initialisation des positions des textes + Couleurs
-        
-        if not(NO_WINDOW):
+        # Initialisation des positions des textes + Couleurs
+        if with_window:
             # Position Text Sonar
             self.posXNbrWin = 130
             self.posYNbrWin = 540
@@ -40,12 +38,12 @@ class Stats:
             self.posXTime = 130
             self.posYTime = 560
 
-            self.green = (0, 255, 0) 
+            self.green = (0, 255, 0)
 
             self.font = pygame.font.Font('freesansbold.ttf', 20)
 
-    ## Affichage à l'écran des textes de statistiques
-    def draw(self, screen, terrain):
+    # Affichage à l'écran des textes de statistiques
+    def draw(self, screen, terrain, elapsedTime):
 
         self.nbrSubText = self.font.render(
             "Sub_Number = " + str(terrain.nbrSubCreated), True, self.green)
@@ -66,7 +64,7 @@ class Stats:
         screen.blit(self.nbrWinText, self.nbrWinTextRect)
 
         self.nbrWinText = self.font.render(
-            "Time = " + str(int(elapsedTime(terrain.start))), True, self.green)
+            "Time = " + str(int(elapsedTime)), True, self.green)
         self.nbrWinTextRect = self.nbrWinText.get_rect()
         self.nbrWinTextRect.topleft = (self.posXTime, self.posYTime)
         screen.blit(self.nbrWinText, self.nbrWinTextRect)

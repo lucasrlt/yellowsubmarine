@@ -3,9 +3,11 @@ from .constants import WINDOW_SIZE, GEN_SIZE
 from .submarine import Submarine
 import sys
 
-## Fonction de création des premiers sous-marins
-## Se base sois sur le fichier data/lastGen.txt pour charger une génération déjà sauvegardé si un paramètre de lancement à été fournis
-## ou en crée une entièrement nouvelle
+# Fonction de création des premiers sous-marins
+# Se base sois sur le fichier data/lastGen.txt pour charger une génération déjà sauvegardé si un paramètre de lancement à été fournis
+# ou en crée une entièrement nouvelle
+
+
 def createSub(space):
     tab = []
     if len(sys.argv) != 1:
