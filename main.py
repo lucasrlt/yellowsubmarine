@@ -11,7 +11,7 @@ def get_cmd(module, console=False):
 if __name__ == "__main__":
     console = '--console' in sys.argv
     trained = '--trained' in sys.argv
-    if '--cars' in sys.argv:
+    if len(sys.argv) <= 1 or '--cars' in sys.argv:
         os.system(get_cmd('cars', console))
     elif '--submarines' in sys.argv:
         os.system(get_cmd('submarines', console))

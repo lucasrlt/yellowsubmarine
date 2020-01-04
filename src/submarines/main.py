@@ -29,6 +29,7 @@ if __name__ == "__main__":
         win.refresh()
 
         if not show_trained:
+            # Chaque génération a une durée limitée. Si la fin de la génération est atteinte, on en crée une nouvelle.
             if time.time() - start >= (GEN_TIME if not with_window else GEN_TIME * 4):
                 print("----Gen Time Out----")
                 for sub in win.terrain.tabSub:
@@ -40,6 +41,7 @@ if __name__ == "__main__":
                     if sub.distance == -1:
                         sub.distance = sub.getScreenPosition()[0]
 
+            # Tous les sous-marins se sont échoués, on passe à la génération suivante.
             if win.terrain.nbrSubCreated == 0:
                 start = time.time()
                 win.terrain.gene += 1
@@ -49,11 +51,13 @@ if __name__ == "__main__":
                 if NO_WINDOW:
                     win.print_gen_info()
 
+                # Création du tableau de scores par sous marin
                 newTabSub = []
                 scores = []
                 for sub in win.terrain.tabSub:
                     scores.append(sub.distance / 1475.0)
 
+                # Création des sous marins créés à partir des chromosomes généras par l'algo génétique.
                 newChromosomes = trainer.new_generation(scores)
                 for chromosome in newChromosomes:
                     randR = random.randint(0, 255)
