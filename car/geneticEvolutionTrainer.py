@@ -13,8 +13,8 @@ class GeneticEvolutionTrainer():
     population_size = 100
     parents = int(population_size * selection_rate)
     population = None
-    boundaries = [(1, 50), (1, 50),
-                  (0, 50), (0, 50), (50, 50), (30, 30), (5, 50000), (0, 50)]
+    boundaries = [(15, 40), (15, 40),
+                  (0, 60), (0, 60), (80, 120), (30, 30), (5, 50000), (2, 20)]
 
     def new_generation(self, scores=None):
         if self.population is None:
@@ -41,6 +41,8 @@ class GeneticEvolutionTrainer():
         new_population = self.mutation(base_offsprings)
         self.population = new_population
         self.generation += 1
+
+        print("Taille: " + str(len(self.population)))
         return self.population
 
     def pair(self, parents):
