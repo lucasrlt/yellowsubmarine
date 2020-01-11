@@ -58,7 +58,7 @@ class Stats:
         screen.blit(self.nbrGenText, self.nbrGenTextRect)
 
         self.nbrWinText = self.font.render(
-            "Win Number = " + str(terrain.nbrWinner) + "/" + str(GEN_SIZE), True, self.green)
+            "Win Number = " + str(terrain.nbrWinner), True, self.green)
         self.nbrWinTextRect = self.nbrWinText.get_rect()
         self.nbrWinTextRect.topleft = (self.posXNbrWin, self.posYNbrWin)
         screen.blit(self.nbrWinText, self.nbrWinTextRect)
